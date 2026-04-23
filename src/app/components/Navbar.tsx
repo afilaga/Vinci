@@ -51,9 +51,13 @@ export const Navbar = () => {
         <a 
           href="#home" 
           onClick={(e) => scrollToSection(e, '#home')}
-          className="text-white text-3xl font-bold tracking-tighter"
+          className="flex items-center"
         >
-          A²
+          <img 
+            src="/images/logo_new.png" 
+            alt="A² Logo" 
+            className="h-12 w-auto object-contain brightness-0 invert" 
+          />
         </a>
 
         {/* Desktop Nav */}

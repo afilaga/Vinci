@@ -13,7 +13,6 @@ export const Hero = () => {
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
   const opacity = useTransform(scrollYProgress, [0, 1], [0.4, 0]);
 
-  const titleText = "A²";
 
   return (
     <section id="home" ref={ref} className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-black">
@@ -38,24 +37,19 @@ export const Hero = () => {
       {/* Content */}
       <div className="relative z-10 text-center px-6">
         <div className="flex flex-col items-center justify-center mb-8">
-          <div className="flex overflow-hidden">
-            {titleText.split("").map((char, index) => (
-              <motion.h1
-                key={index}
-                initial={{ y: "100%" }}
-                animate={{ y: 0 }}
-                transition={{ duration: 1, delay: index * 0.1, ease: [0.19, 1, 0.22, 1] }}
-                className="text-white text-8xl md:text-[10rem] font-bold tracking-tighter leading-none"
-              >
-                {char}
-              </motion.h1>
-            ))}
-          </div>
+          <motion.img
+            src="/images/logo_new.png"
+            alt="A² Logo"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.5, ease: [0.19, 1, 0.22, 1] }}
+            className="h-32 md:h-48 w-auto object-contain brightness-0 invert"
+          />
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
-            className="text-gray-400 text-xl md:text-3xl font-light tracking-[0.3em] uppercase mt-4"
+            transition={{ duration: 1, delay: 0.6, ease: "easeOut" }}
+            className="text-gray-400 text-xl md:text-3xl font-light tracking-[0.3em] uppercase mt-8"
           >
             Ardor Squared
           </motion.div>
