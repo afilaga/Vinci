@@ -1,11 +1,68 @@
+# A² — Ardor Squared
 
-  # Portfolio website for A2
+> Портфолио-сайт музыкального дуэта A² (Ardor Squared) — вокал и саксофон.
 
-  This is a code bundle for Portfolio website for A2. The original project is available at https://www.figma.com/design/ybNnqQwMbzs2pwSxyywMhO/Portfolio-website-for-A2.
+## О проекте
 
-  ## Running the code
+**A²** — это дуэт Полины Винчи (вокал) и Михаила Акимова (саксофон). Их философия: минимум средств, максимум выразительности. Сайт создан для презентации дуэта, репертуара и приёма заявок на бронирование.
 
-  Run `npm i` to install the dependencies.
+## Стек
 
-  Run `npm run dev` to start the development server.
-  
+| Технология | Версия |
+|---|---|
+| React | 18 |
+| Vite | 6 |
+| Tailwind CSS | 4 |
+| Framer Motion | 12 |
+| OGL (WebGL) | 1.x |
+| React Router | 7 |
+
+## Особенности дизайна
+
+- 🔮 **Prism Hero** — интерактивный 3D WebGL-фон на главном экране
+- 🪟 **Glassmorphism** — стеклянные карточки и элементы интерфейса по всему сайту
+- 🌑 **Dark Mode** — глубокая тёмная тема для максимальной выразительности
+- ✨ **Анимации** — плавные переходы и параллакс-эффекты на базе Framer Motion
+
+## Структура
+
+```
+src/
+├── app/
+│   ├── components/
+│   │   ├── Hero.tsx        # Главный экран с Prism-фоном
+│   │   ├── About.tsx       # О проекте
+│   │   ├── Repertoire.tsx  # Программы и форматы
+│   │   ├── Gallery.tsx     # Галерея
+│   │   ├── Video.tsx       # Видео
+│   │   ├── Contact.tsx     # Форма бронирования
+│   │   ├── Navbar.tsx      # Навигация
+│   │   └── Prism.jsx       # WebGL Prism компонент
+│   └── App.tsx
+├── styles/
+│   ├── theme.css
+│   └── index.css
+└── main.tsx
+```
+
+## Запуск
+
+```bash
+npm install
+npm run dev
+```
+
+## Сборка
+
+```bash
+npm run build
+npm run preview
+```
+
+## Деплой
+
+Проект настроен для деплоя на **Vercel**. Подключите репозиторий на [vercel.com](https://vercel.com) — сборка произойдёт автоматически.
+
+---
+
+*© 2026 A² (Ardor Squared). Все права защищены.*
