@@ -1,18 +1,31 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { ChevronDown } from 'lucide-react';
+import MagicRings from '../../components/MagicRings';
 
 export const Hero = () => {
   return (
     <section id="home" className="relative min-h-dvh w-full flex items-center justify-center overflow-hidden bg-black py-28 md:py-32">
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_34%,rgba(255,255,255,0.28),transparent_16%),radial-gradient(circle_at_50%_58%,rgba(255,255,255,0.14),transparent_34%),linear-gradient(135deg,rgba(255,255,255,0.1),transparent_28%,rgba(255,255,255,0.08)_62%,transparent_78%)]" />
-        <div className="absolute left-1/2 top-[18%] h-[52rem] w-[32rem] -translate-x-1/2 rotate-12 bg-white/10 blur-3xl" />
-        <div className="absolute inset-x-0 bottom-0 h-2/3 bg-[radial-gradient(ellipse_at_bottom,rgba(16,90,100,0.36),transparent_62%)]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/20 to-black" />
+      {/* Dynamic Interactive Background */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <MagicRings 
+          color="#ffffff" 
+          colorTwo="#105a64" 
+          speed={0.8}
+          ringCount={5}
+          baseRadius={0.25}
+          radiusStep={0.12}
+          scaleRate={0.12}
+          opacity={0.35}
+          followMouse={true}
+          mouseInfluence={0.06}
+          hoverScale={1.1}
+          parallax={0.03}
+          clickBurst={true}
+        />
+        {/* Soft overlay gradient to ensure high readability of text and blend borders */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-black pointer-events-none" />
       </div>
-
-      <div className="absolute inset-0 z-[1] bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.1),transparent_38%)]" />
 
       {/* Content */}
       <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
