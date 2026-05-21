@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Play, Pause, Search, X, Music, Volume2, Calendar } from 'lucide-react';
+import { Search, X, Music } from 'lucide-react';
 
 interface Track {
   id: string;
@@ -567,39 +567,7 @@ const TRACKS_DATABASE: Track[] = [
 export const Playlist = () => {
   const [selectedCategory, setSelectedCategory] = useState<typeof CATEGORIES[number]['id']>('all');
   const [searchQuery, setSearchQuery] = useState('');
-  const [currentTrack, setCurrentTrack] = useState<Track | null>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
   const [expanded, setExpanded] = useState(false);
-
-  // Mini-player progress state (simulated song time)
-  const [progress, setProgress] = useState(0);
-  const [currentTime, setCurrentTime] = useState(0);
-  const duration = 180; // 3 minutes simulated length
-
-  // Reset progress when track changes
-  useEffect(() => {
-    setProgress(0);
-    setCurrentTime(0);
-  }, [currentTrack]);
-
-  // Audio timer simulation
-  useEffect(() => {
-    let interval: NodeJS.Timeout;
-    if (isPlaying && currentTrack) {
-      interval = setInterval(() => {
-        setCurrentTime((prev) => {
-          if (prev >= duration) {
-            setProgress(0);
-            return 0; // Loop or stop
-          }
-          const nextTime = prev + 1;
-          setProgress((nextTime / duration) * 100);
-          return nextTime;
-        });
-      }, 1000);
-    }
-    return () => clearInterval(interval);
-  }, [isPlaying, currentTrack]);
 
   // Filter logic
   const filteredTracks = useMemo(() => {
@@ -624,30 +592,6 @@ export const Playlist = () => {
     }
     return filteredTracks.slice(0, 16);
   }, [filteredTracks, expanded]);
-
-  const handleTrackPlay = (track: Track) => {
-    if (currentTrack?.id === track.id) {
-      setIsPlaying(!isPlaying);
-    } else {
-      setCurrentTrack(track);
-      setIsPlaying(true);
-    }
-  };
-
-  const handleProgressBarClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const clickX = e.clientX - rect.left;
-    const width = rect.width;
-    const nextPercent = Math.max(0, Math.min(100, (clickX / width) * 100));
-    setProgress(nextPercent);
-    setCurrentTime(Math.floor((nextPercent / 100) * duration));
-  };
-
-  const formatTime = (secs: number) => {
-    const minutes = Math.floor(secs / 60);
-    const seconds = secs % 60;
-    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-  };
 
   // Helper to get visual category name for badges
   const getCategoryName = (cat: Track['category']) => {
@@ -681,7 +625,7 @@ export const Playlist = () => {
               Плейлист A²
             </h2>
             <p className="text-white/60 font-light text-lg leading-relaxed max-w-2xl">
-              Интерактивная подборка наших любимых композиций. Выберите интересующую категорию или воспользуйтесь мгновенным поиском, чтобы составить идеальный плейлист для Вашего вечера.
+              Наш репертуар, структурированный по музыкальным направлениям. Выберите интересующую категорию или воспользуйтесь поиском, чтобы ознакомиться с полным списком композиций.
             </p>
           </motion.div>
         </div>
@@ -697,7 +641,7 @@ export const Playlist = () => {
                 <button
                   key={cat.id}
                   onClick={() => setSelectedCategory(cat.id)}
-                  className={`px-5 py-2.5 rounded-full text-xs uppercase tracking-widest transition-all duration-300 relative focus:outline-none focus:ring-1 focus:ring-white/20`}
+                  className="px-5 py-2.5 rounded-full text-xs uppercase tracking-widest transition-all duration-300 relative focus:outline-none focus:ring-1 focus:ring-white/20"
                 >
                   {isActive && (
                     <motion.div
@@ -748,9 +692,6 @@ export const Playlist = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <AnimatePresence mode="popLayout">
               {visibleTracks.map((track, index) => {
-                const isCurrent = currentTrack?.id === track.id;
-                const isThisPlaying = isCurrent && isPlaying;
-                
                 return (
                   <motion.div
                     key={track.id}
@@ -760,61 +701,34 @@ export const Playlist = () => {
                     exit={{ opacity: 0, scale: 0.95 }}
                     transition={{ duration: 0.4, delay: Math.min(index * 0.03, 0.3) }}
                   >
-                    <button
-                      onClick={() => handleTrackPlay(track)}
-                      className={`w-full text-left p-4 rounded-xl border flex items-center justify-between gap-4 transition-all duration-300 group cursor-pointer ${
-                        isCurrent 
-                          ? 'bg-white/10 border-white/20 shadow-[0_0_20px_rgba(255,255,255,0.06)]' 
-                          : 'bg-white/[0.02] border-white/5 hover:bg-white/5 hover:border-white/10'
-                      }`}
+                    <div
+                      className="w-full text-left p-4 rounded-xl border border-white/5 bg-white/[0.02] flex items-center justify-between gap-4 transition-all duration-300 group hover:bg-white/5 hover:border-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.02)]"
                     >
-                      {/* Play Button & Number */}
+                      {/* Track Counter & Title */}
                       <div className="flex items-center gap-4 min-w-0">
-                        <div className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0 group-hover:bg-white/10 group-hover:border-white/20 transition-all">
-                          {isThisPlaying ? (
-                            <Pause className="w-4 h-4 text-white fill-white animate-pulse" />
-                          ) : (
-                            <Play className="w-4 h-4 text-white fill-white/10 group-hover:fill-white transition-all duration-300" />
-                          )}
+                        {/* Number Index Icon Box */}
+                        <div className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0 text-white/40 text-xs font-mono group-hover:text-white/80 group-hover:border-white/20 group-hover:bg-white/10 transition-all">
+                          {String(index + 1).padStart(2, '0')}
                         </div>
 
                         {/* Title & Artist */}
                         <div className="min-w-0">
-                          <h3 className={`text-sm md:text-base font-medium truncate tracking-wide transition-colors ${isCurrent ? 'text-white' : 'text-white/80 group-hover:text-white'}`}>
+                          <h3 className="text-sm md:text-base font-medium truncate tracking-wide text-white/80 group-hover:text-white transition-colors">
                             {track.title}
                           </h3>
-                          <p className="text-xs text-white/50 group-hover:text-white/70 font-light truncate mt-0.5">
+                          <p className="text-xs text-white/40 group-hover:text-white/60 font-light truncate mt-0.5 transition-colors">
                             {track.artist}
                           </p>
                         </div>
                       </div>
 
-                      {/* Badge / Indicator */}
-                      <div className="flex items-center gap-3 flex-shrink-0">
-                        {isThisPlaying ? (
-                          <div className="flex items-end gap-0.5 h-4 w-6">
-                            {[...Array(4)].map((_, barIdx) => (
-                              <motion.div
-                                key={barIdx}
-                                className="w-[3px] bg-white rounded-full"
-                                animate={{ height: [4, 16, 6, 12, 4][barIdx % 3] }}
-                                transition={{
-                                  duration: [0.5, 0.7, 0.6, 0.8][barIdx % 4],
-                                  repeat: Infinity,
-                                  repeatType: 'reverse',
-                                  ease: 'easeInOut',
-                                  delay: barIdx * 0.1
-                                }}
-                              />
-                            ))}
-                          </div>
-                        ) : (
-                          <span className="px-2.5 py-1 bg-white/5 border border-white/5 rounded-full text-[9px] uppercase tracking-widest text-white/40 group-hover:text-white/60 transition-colors">
-                            {getCategoryName(track.category)}
-                          </span>
-                        )}
+                      {/* Genre Pill Badge */}
+                      <div className="flex-shrink-0">
+                        <span className="px-2.5 py-1 bg-white/5 border border-white/5 rounded-full text-[9px] uppercase tracking-widest text-white/40 group-hover:text-white/60 transition-colors">
+                          {getCategoryName(track.category)}
+                        </span>
                       </div>
-                    </button>
+                    </div>
                   </motion.div>
                 );
               })}
@@ -847,137 +761,6 @@ export const Playlist = () => {
         )}
 
       </div>
-
-      {/* Floating Ultra-Premium Bottom Mini-Player Drawer */}
-      <AnimatePresence>
-        {currentTrack && (
-          <motion.div
-            initial={{ y: 100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: 100, opacity: 0 }}
-            transition={{ type: 'spring', stiffness: 260, damping: 26 }}
-            className="fixed bottom-6 left-0 right-0 z-50 px-4 md:px-6 pointer-events-none"
-          >
-            <div className="max-w-4xl mx-auto w-full bg-black/80 backdrop-blur-2xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.8)] rounded-full py-3.5 px-6 flex flex-row items-center justify-between gap-4 md:gap-8 pointer-events-auto">
-              
-              {/* Left track item info with spinning note art */}
-              <div className="flex items-center gap-3 min-w-0 flex-1 md:flex-initial">
-                <motion.div 
-                  animate={isPlaying ? { rotate: 360 } : {}}
-                  transition={{ repeat: Infinity, duration: 12, ease: 'linear' }}
-                  className="w-11 h-11 rounded-full bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0"
-                >
-                  <Music className="w-5 h-5 text-white/80" />
-                </motion.div>
-                <div className="min-w-0">
-                  <h4 className="text-xs md:text-sm font-semibold truncate text-white tracking-wide">
-                    {currentTrack.title}
-                  </h4>
-                  <p className="text-[10px] md:text-xs text-white/50 truncate font-light mt-0.5">
-                    {currentTrack.artist}
-                  </p>
-                </div>
-              </div>
-
-              {/* Center controls & horizontal progress line */}
-              <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4 flex-1 justify-center max-w-md">
-                
-                {/* Play/Pause Button */}
-                <button
-                  onClick={() => setIsPlaying(!isPlaying)}
-                  className="p-2.5 bg-white text-black hover:bg-white/90 rounded-full transition-colors flex-shrink-0 cursor-pointer shadow-lg shadow-white/5 focus:outline-none"
-                  aria-label={isPlaying ? "Пауза" : "Воспроизвести"}
-                >
-                  {isPlaying ? <Pause className="w-4 h-4 fill-black" /> : <Play className="w-4 h-4 fill-black" />}
-                </button>
-
-                {/* Progress bar and time labels */}
-                <div className="flex items-center gap-2.5 w-full">
-                  <span className="text-[9px] font-mono text-white/40 select-none">
-                    {formatTime(currentTime)}
-                  </span>
-                  
-                  {/* Interactive Slider Bar */}
-                  <div 
-                    onClick={handleProgressBarClick}
-                    className="h-1 flex-1 bg-white/10 hover:bg-white/20 rounded-full overflow-hidden relative cursor-pointer group transition-all"
-                  >
-                    <div 
-                      className="absolute left-0 top-0 bottom-0 bg-white group-hover:bg-white transition-all rounded-full" 
-                      style={{ width: `${progress}%` }}
-                    />
-                  </div>
-
-                  <span className="text-[9px] font-mono text-white/40 select-none">
-                    {formatTime(duration)}
-                  </span>
-                </div>
-              </div>
-
-              {/* Right side animated visualizer equalizer bars & close panel */}
-              <div className="hidden sm:flex items-center gap-6">
-                
-                {/* Simulated playback text */}
-                <div className="flex items-center gap-1.5 text-white/40">
-                  <Volume2 className="w-3.5 h-3.5" />
-                  <span className="text-[9px] tracking-widest uppercase">
-                    {isPlaying ? 'Демо-Воспроизведение' : 'Пауза'}
-                  </span>
-                </div>
-
-                {/* Equalizer Wave bars */}
-                <div className="flex items-end gap-[3px] h-6 w-9 overflow-hidden pr-2">
-                  {[...Array(6)].map((_, i) => (
-                    <motion.div
-                      key={i}
-                      className="w-0.5 bg-white"
-                      animate={{
-                        height: isPlaying 
-                          ? [4, 20, 8, 24, 12, 4][i % 6]
-                          : 4
-                      }}
-                      transition={{
-                        duration: isPlaying ? [0.6, 0.8, 0.5, 0.7, 0.9, 0.6][i % 6] : 0.2,
-                        repeat: Infinity,
-                        repeatType: 'reverse',
-                        ease: 'easeInOut',
-                        delay: isPlaying ? i * 0.05 : 0
-                      }}
-                    />
-                  ))}
-                </div>
-
-                {/* Close Button */}
-                <button
-                  onClick={() => {
-                    setIsPlaying(false);
-                    setCurrentTrack(null);
-                  }}
-                  className="p-1 hover:bg-white/10 rounded-full text-white/40 hover:text-white transition-colors cursor-pointer"
-                  aria-label="Закрыть плеер"
-                >
-                  <X className="w-4 h-4" />
-                </button>
-              </div>
-
-              {/* Mobile Close Button */}
-              <div className="sm:hidden flex items-center">
-                <button
-                  onClick={() => {
-                    setIsPlaying(false);
-                    setCurrentTrack(null);
-                  }}
-                  className="p-1.5 hover:bg-white/10 rounded-full text-white/40 hover:text-white transition-colors cursor-pointer"
-                  aria-label="Закрыть плеер"
-                >
-                  <X className="w-4.5 h-4.5" />
-                </button>
-              </div>
-
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </section>
   );
 };
