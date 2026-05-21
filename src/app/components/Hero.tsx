@@ -29,7 +29,7 @@ export const Hero = () => {
 
         <div className="flex flex-col items-center justify-center mb-8">
           <motion.img
-            src="/images/logo_new.png"
+            src="images/logo_new.png"
             alt="A² Logo"
             width={320}
             height={260}

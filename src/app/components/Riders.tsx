@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { 
   Download, FileText, Mic, Music, Coffee, Plane, MapPin, Users, 
   CheckCircle2, AlertTriangle, Clock, ShieldCheck, Volume2, Briefcase, 
-  Tv, Eye, HelpCircle
+  Tv, Eye, HelpCircle, Compass, Layers
 } from 'lucide-react';
 
 type RiderTab = 'technical' | 'hospitality';
@@ -87,7 +87,7 @@ export const Riders = () => {
           {/* Quick PDF Downloads */}
           <div className="flex flex-wrap gap-4 justify-center">
             <a
-              href="/raiders/a2_technical_rider.pdf"
+              href="raiders/a2_technical_rider.pdf"
               download
               className="px-5 py-3 bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 rounded-2xl text-xs uppercase tracking-wider font-semibold flex items-center gap-2.5 transition-all hover:scale-105 active:scale-95 group cursor-pointer shadow-lg shadow-black/20"
             >
@@ -97,7 +97,7 @@ export const Riders = () => {
             </a>
             
             <a
-              href="/raiders/a2_hospitality_rider.pdf"
+              href="raiders/a2_hospitality_rider.pdf"
               download
               className="px-5 py-3 bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 rounded-2xl text-xs uppercase tracking-wider font-semibold flex items-center gap-2.5 transition-all hover:scale-105 active:scale-95 group cursor-pointer shadow-lg shadow-black/20"
             >

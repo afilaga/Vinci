@@ -5,13 +5,13 @@ import { ImageWithFallback } from './figma/ImageWithFallback';
 import { GalleryLightbox } from './GalleryLightbox';
 
 const photos = [
-  { src: "/images/polina_performance.jpg", alt: "Полина Винчи на выступлении" },
-  { src: "/images/mikhail_2.jpg", alt: "Михаил Акимов с саксофоном" },
-  { src: "/images/duo.jpg", alt: "Дуэт A²: вокал и саксофон" },
-  { src: "/images/background_performance.jpg", alt: "Атмосфера живого выступления A²" },
-  { src: "/images/polina.jpg", alt: "Портрет Полины Винчи" },
-  { src: "/images/mikhail.jpg", alt: "Портрет Михаила Акимова" },
-  { src: "/images/logo_pattern.jpg", alt: "Визуальный паттерн A²" },
+  { src: "images/polina_performance.jpg", alt: "Полина Винчи на выступлении" },
+  { src: "images/mikhail_2.jpg", alt: "Михаил Акимов с саксофоном" },
+  { src: "images/duo.jpg", alt: "Дуэт A²: вокал и саксофон" },
+  { src: "images/background_performance.jpg", alt: "Атмосфера живого выступления A²" },
+  { src: "images/polina.jpg", alt: "Портрет Полины Винчи" },
+  { src: "images/mikhail.jpg", alt: "Портрет Михаила Акимова" },
+  { src: "images/logo_pattern.jpg", alt: "Визуальный паттерн A²" },
 ];
 
 export const Gallery = () => {

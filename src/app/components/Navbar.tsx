@@ -57,7 +57,7 @@ export const Navbar = () => {
           className="flex items-center"
         >
           <img 
-            src="/images/logo_new.png" 
+            src="images/logo_new.png" 
             alt="A² Logo" 
             className="h-12 w-auto object-contain brightness-0 invert" 
           />

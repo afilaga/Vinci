@@ -8,13 +8,13 @@ const concertVideos = [
   {
     title: 'Концертный сет A²',
     meta: 'Live performance',
-    thumbnail: '/images/polina_performance.jpg',
+    thumbnail: 'images/polina_performance.jpg',
     youtubeId: 'L_XJ_s5IsQc', // Premium Sax/Vocal style performance cover
   },
   {
     title: 'Саксофон и вокал',
     meta: 'Video excerpt',
-    thumbnail: '/images/background_performance.jpg',
+    thumbnail: 'images/background_performance.jpg',
     youtubeId: '3v0a_h8S1kM',
   },
 ];

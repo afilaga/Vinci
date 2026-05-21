@@ -15,28 +15,28 @@ const DEMO_TRACKS: DemoTrack[] = [
     id: 'demo-1',
     title: 'Teddy Swims - Lose Control + Call Out My Name + Dangerous Woman',
     artist: 'A² Mash-Up',
-    src: '/demo-tracks/Mix number 21 (lose control) mastering wt.wav',
+    src: 'demo-tracks/Mix number 21 (lose control) mastering wt.wav',
     durationLabel: '2:14'
   },
   {
     id: 'demo-2',
     title: 'Tropical House Mix (Every Breath You Take + Titanium + Wicked Game)',
     artist: 'A² Mash-Up',
-    src: '/demo-tracks/Tropical Mix Demo (louder).wav',
+    src: 'demo-tracks/Tropical Mix Demo (louder).wav',
     durationLabel: '8:36'
   },
   {
     id: 'demo-3',
     title: 'Je Veux',
     artist: 'ZAZ (A² Cover)',
-    src: '/demo-tracks/je veux demo.wav',
+    src: 'demo-tracks/je veux demo.wav',
     durationLabel: '1:10'
   },
   {
     id: 'demo-4',
     title: 'Le temps est bon',
     artist: 'Bon Entendeur (A² Cover)',
-    src: '/demo-tracks/le temps est bon demo.wav',
+    src: 'demo-tracks/le temps est bon demo.wav',
     durationLabel: '1:13'
   }
 ];

@@ -17,7 +17,7 @@ export const About = () => {
           >
             <div className="absolute inset-0 overflow-hidden">
               <ImageWithFallback
-                src="/images/duo.jpg"
+                src="images/duo.jpg"
                 alt="A² Duo"
                 loading="lazy"
                 decoding="async"
@@ -74,7 +74,7 @@ export const About = () => {
             <div className="space-y-4 text-gray-400 font-light leading-relaxed">
               <div className="mb-6 relative aspect-square w-48 overflow-hidden rounded-full border border-gray-800">
                 <ImageWithFallback
-                  src="/images/polina.jpg"
+                  src="images/polina.jpg"
                   alt="Polina Vinci"
                   className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
                 />
@@ -100,7 +100,7 @@ export const About = () => {
             <div className="space-y-4 text-gray-400 font-light leading-relaxed">
               <div className="mb-6 relative aspect-square w-48 overflow-hidden rounded-full border border-gray-800">
                 <ImageWithFallback
-                  src="/images/mikhail.jpg"
+                  src="images/mikhail.jpg"
                   alt="Mikhail Akimov"
                   className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
                 />
