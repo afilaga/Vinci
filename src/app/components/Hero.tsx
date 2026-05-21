@@ -35,7 +35,7 @@ export const Hero = () => {
           baseRadius={0.25}
           radiusStep={0.12}
           scaleRate={0.12}
-          opacity={isDark ? 0.35 : 0.15}
+          opacity={isDark ? 0.35 : 0.6}
           followMouse={true}
           mouseInfluence={0.06}
           hoverScale={1.1}
