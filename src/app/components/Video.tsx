@@ -1,99 +1,108 @@
-import React, { useState } from 'react';
-import { motion } from 'motion/react';
-import { Play } from 'lucide-react';
+import React, { useState, useRef } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { Play, Pause, Volume2, VolumeX, Maximize } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
-import { VideoModal } from './VideoModal';
-
-const concertVideos = [
-  {
-    title: 'Концертный сет A²',
-    meta: 'Live performance',
-    thumbnail: 'images/polina_performance.jpg',
-    youtubeId: 'L_XJ_s5IsQc', // Premium Sax/Vocal style performance cover
-  },
-  {
-    title: 'Саксофон и вокал',
-    meta: 'Video excerpt',
-    thumbnail: 'images/background_performance.jpg',
-    youtubeId: '3v0a_h8S1kM',
-  },
-];
 
 export const Video = () => {
-  const [modalOpen, setModalOpen] = useState(false);
-  const [activeYoutubeId, setActiveYoutubeId] = useState('');
+  const [isPlaying, setIsPlaying] = useState(false);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
 
-  const openVideo = (youtubeId: string) => {
-    setActiveYoutubeId(youtubeId);
-    setModalOpen(true);
+  const handlePlayPause = () => {
+    if (!videoRef.current) return;
+
+    if (isPlaying) {
+      videoRef.current.pause();
+      setIsPlaying(false);
+    } else {
+      videoRef.current.play()
+        .then(() => setIsPlaying(true))
+        .catch((err) => {
+          console.error("Video playback failed:", err);
+          setIsPlaying(false);
+        });
+    }
+  };
+
+  const handleVideoEnded = () => {
+    setIsPlaying(false);
   };
 
   return (
-    <section id="video" className="py-24 md:py-32 bg-black text-white relative">
-      <div className="container mx-auto px-6 md:px-12 text-center">
+    <section id="video" className="py-24 md:py-32 bg-[#030303] text-white relative overflow-hidden">
+      {/* Background ambient glow behind the video */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-white/[0.015] rounded-full blur-[140px] pointer-events-none" />
+      
+      <div className="container mx-auto px-6 md:px-12 text-center relative z-10">
+        
+        {/* Title */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mb-16"
+          className="mb-16 space-y-4"
         >
-          <h2 className="text-4xl md:text-5xl font-light uppercase tracking-widest mb-4">Живые выступления</h2>
-          <p className="text-gray-400 font-light tracking-widest uppercase text-sm">Почувствуйте магию</p>
+          <span className="text-xs uppercase tracking-[0.3em] text-white/40 font-semibold">Live промо</span>
+          <h2 className="text-4xl md:text-5xl font-light uppercase tracking-widest text-white">Живое выступление</h2>
+          <p className="text-white/60 font-light text-base md:text-lg max-w-xl mx-auto leading-relaxed">
+            Почувствуйте невероятную атмосферу и энергетику нашего живого выступления. Видео-презентация дуэта A²: вокал и саксофон.
+          </p>
         </motion.div>
 
+        {/* Premium Cinematic Inline Player */}
         <motion.div 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="grid max-w-6xl mx-auto grid-cols-1 md:grid-cols-2 gap-6 text-left"
+          className="max-w-4xl mx-auto"
         >
-          {concertVideos.map((video, index) => (
-            <button
-              key={video.title}
-              onClick={() => openVideo(video.youtubeId)}
-              className="group relative aspect-video overflow-hidden border border-gray-800 bg-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-black text-left block w-full cursor-pointer"
-              aria-label={`Открыть видео: ${video.title}`}
-            >
-              <ImageWithFallback
-                src={video.thumbnail}
-                alt={`Обложка видео: ${video.title}`}
-                loading={index === 0 ? 'eager' : 'lazy'}
-                decoding="async"
-                className="w-full h-full object-cover grayscale opacity-65 group-hover:opacity-45 transition-opacity duration-300"
-              />
+          <div className="relative aspect-video rounded-3xl overflow-hidden border border-white/10 bg-black/40 shadow-[0_0_50px_rgba(255,255,255,0.02)] backdrop-blur-sm group">
+            
+            {/* Native HTML5 Video Element */}
+            <video
+              ref={videoRef}
+              src="video/a2_live_video.mp4"
+              poster="images/polina_performance.jpg"
+              playsInline
+              controls={isPlaying}
+              onPlay={() => setIsPlaying(true)}
+              onPause={() => setIsPlaying(false)}
+              onEnded={handleVideoEnded}
+              className="w-full h-full object-cover relative z-0"
+            />
 
-              <div className="absolute inset-0 flex items-center justify-center" aria-hidden="true">
-                <div className="w-16 h-16 md:w-20 md:h-20 rounded-full border border-white flex items-center justify-center group-hover:bg-white group-hover:text-black transition-colors duration-200">
-                  <Play className="w-7 h-7 md:w-9 md:h-9 ml-1" fill="currentColor" aria-hidden="true" />
-                </div>
-              </div>
+            {/* Custom Glassmorphic Play Overlay (Fades out when playing) */}
+            <AnimatePresence>
+              {!isPlaying && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                  onClick={handlePlayPause}
+                  className="absolute inset-0 bg-black/45 flex flex-col items-center justify-center cursor-pointer z-10 p-6 select-none"
+                >
+                  {/* Big Play button */}
+                  <motion.div
+                    whileHover={{ scale: 1.08 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="w-20 h-20 md:w-24 md:h-24 rounded-full border border-white/20 bg-white/5 backdrop-blur-md flex items-center justify-center group-hover:border-white/40 group-hover:bg-white/10 transition-all duration-300 shadow-2xl"
+                  >
+                    <Play className="w-8 h-8 md:w-10 md:h-10 ml-1.5 text-white fill-white" />
+                  </motion.div>
 
-              <div className="absolute left-0 right-0 bottom-0 p-5 bg-gradient-to-t from-black via-black/70 to-transparent">
-                <p className="text-[10px] uppercase tracking-[0.35em] text-gray-400 mb-2">{video.meta}</p>
-                <h3 className="text-lg md:text-xl font-light uppercase tracking-widest text-white">{video.title}</h3>
-              </div>
-            </button>
-          ))}
+                  <span className="mt-6 text-xs md:text-sm uppercase tracking-[0.25em] text-white/80 font-medium group-hover:text-white transition-colors duration-300">
+                    Смотреть промо-видео
+                  </span>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+          </div>
         </motion.div>
-        
-        <div className="mt-12 flex flex-wrap justify-center gap-6">
-          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white uppercase tracking-widest text-sm transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-black">
-            YouTube канал
-          </a>
-          <span className="text-gray-800">|</span>
-          <a href="https://vimeo.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white uppercase tracking-widest text-sm transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-black">
-            Профиль Vimeo
-          </a>
-        </div>
-      </div>
 
-      <VideoModal
-        isOpen={modalOpen}
-        youtubeId={activeYoutubeId}
-        onClose={() => setModalOpen(false)}
-      />
+      </div>
     </section>
   );
 };
