@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
+import { Mail, Phone, MessageSquare, Send } from 'lucide-react';
 
 type BookingFormData = {
   name: string;
@@ -120,23 +121,62 @@ export const Contact = () => {
             
             <div className="space-y-10 relative z-10">
               <div className="group">
-                <h4 className="text-[10px] uppercase tracking-[0.4em] text-gray-500 mb-2 group-hover:text-white transition-colors">Менеджмент и букинг</h4>
-                <a href="mailto:booking@a2duo.com" className="text-xl font-light hover:tracking-widest transition-all duration-300">booking@a2duo.com</a>
+                <h4 className="text-[10px] uppercase tracking-[0.4em] text-gray-500 mb-3 group-hover:text-white transition-colors">Менеджмент и букинг</h4>
+                <a 
+                  href="mailto:booking@a2duo.com" 
+                  className="flex items-center gap-3 w-full bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/30 py-4 px-6 rounded-xl transition-all duration-300 group/btn"
+                >
+                  <Mail size={18} className="text-white/60 group-hover/btn:text-white transition-colors" />
+                  <span className="text-sm font-light tracking-wider group-hover/btn:tracking-widest transition-all duration-300">booking@a2duo.com</span>
+                </a>
               </div>
-              
-              <div className="group">
-                <h4 className="text-[10px] uppercase tracking-[0.4em] text-gray-500 mb-2 group-hover:text-white transition-colors">Телефон</h4>
-                <a href="tel:+79991234567" className="text-xl font-light hover:tracking-widest transition-all duration-300">+7 (999) 123-45-67</a>
+
+              <div className="space-y-4">
+                <h4 className="text-[10px] uppercase tracking-[0.4em] text-gray-500">Связаться в один клик</h4>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-4">
+                  <a 
+                    href="tel:+79194676701"
+                    className="flex items-center gap-3 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/30 py-4 px-6 rounded-xl transition-all duration-300 group/btn"
+                  >
+                    <Phone size={18} className="text-white/60 group-hover/btn:text-white group-hover/btn:animate-pulse transition-colors" />
+                    <span className="text-sm font-light uppercase tracking-widest text-white/80 group-hover/btn:text-white transition-colors">Позвонить</span>
+                  </a>
+
+                  <a 
+                    href="https://wa.me/79194676701"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 bg-[#25D366]/5 hover:bg-[#25D366]/10 border border-[#25D366]/20 hover:border-[#25D366]/50 py-4 px-6 rounded-xl transition-all duration-300 group/btn"
+                  >
+                    <MessageSquare size={18} className="text-[#25D366] opacity-80 group-hover/btn:opacity-100 transition-opacity" />
+                    <span className="text-sm font-light uppercase tracking-widest text-[#25D366] group-hover/btn:text-[#25D366] transition-colors font-medium">WhatsApp</span>
+                  </a>
+
+                  <a 
+                    href="https://t.me/ultravinci"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 bg-[#0088cc]/5 hover:bg-[#0088cc]/10 border border-[#0088cc]/20 hover:border-[#0088cc]/50 py-4 px-6 rounded-xl transition-all duration-300 group/btn col-span-1 sm:col-span-2 lg:col-span-1 xl:col-span-2"
+                  >
+                    <Send size={18} className="text-[#0088cc] opacity-80 group-hover/btn:opacity-100 transition-opacity" />
+                    <span className="text-sm font-light uppercase tracking-widest text-[#0088cc] group-hover/btn:text-[#0088cc] transition-colors font-medium">Telegram</span>
+                  </a>
+                </div>
               </div>
 
               <div className="pt-8 border-t border-white/10">
                 <h4 className="text-[10px] uppercase tracking-[0.4em] text-gray-500 mb-4">Соцсети</h4>
                 <div className="flex flex-wrap gap-x-8 gap-y-2">
-                  {['Instagram', 'Telegram', 'YouTube'].map((social) => (
-                    <a key={social} href="#" className="text-sm uppercase tracking-widest text-gray-400 hover:text-white transition-all hover:translate-x-1 inline-block">
-                      {social}
-                    </a>
-                  ))}
+                  <a href="https://instagram.com/a2.duet" target="_blank" rel="noopener noreferrer" className="text-sm uppercase tracking-widest text-gray-400 hover:text-white transition-all hover:translate-x-1 inline-block">
+                    Instagram
+                  </a>
+                  <a href="https://t.me/ultravinci" target="_blank" rel="noopener noreferrer" className="text-sm uppercase tracking-widest text-gray-400 hover:text-white transition-all hover:translate-x-1 inline-block">
+                    Telegram
+                  </a>
+                  <a href="https://youtube.com/@A2.duet" target="_blank" rel="noopener noreferrer" className="text-sm uppercase tracking-widest text-gray-400 hover:text-white transition-all hover:translate-x-1 inline-block">
+                    YouTube
+                  </a>
                 </div>
               </div>
             </div>

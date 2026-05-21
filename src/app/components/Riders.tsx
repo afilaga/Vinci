@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { 
   Download, FileText, Mic, Music, Coffee, Plane, MapPin, Users, 
   CheckCircle2, AlertTriangle, Clock, ShieldCheck, Volume2, Briefcase, 
-  Tv, Eye, HelpCircle, Compass, Layers
+  Tv, Eye, HelpCircle, Compass, Layers, Phone, MessageSquare, Send
 } from 'lucide-react';
 
 type RiderTab = 'technical' | 'hospitality';
@@ -450,12 +450,37 @@ export const Riders = () => {
         </div>
 
         {/* Contact info footer */}
-        <div className="mt-16 text-center max-w-xl mx-auto p-6 bg-white/[0.02] border border-white/5 rounded-3xl backdrop-blur-md">
-          <p className="text-xs uppercase tracking-widest text-white/40 mb-2">Контакты директора дуэта</p>
-          <p className="text-sm font-semibold text-white/80">Полина</p>
-          <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-6 mt-3 font-mono text-xs text-white/60">
-            <a href="tel:+79194676701" className="hover:text-white transition-colors">+7 (919) 467-67-01</a>
-            <a href="https://t.me/ultravinci" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Telegram: @ultravinci</a>
+        <div className="mt-16 text-center max-w-xl mx-auto p-8 bg-white/[0.02] border border-white/5 rounded-3xl backdrop-blur-md">
+          <p className="text-[10px] uppercase tracking-[0.3em] text-white/40 mb-2">Контакты директора дуэта</p>
+          <p className="text-base font-light text-white/80 uppercase tracking-widest mb-6">Полина</p>
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
+            <a 
+              href="tel:+79194676701" 
+              className="flex items-center justify-center gap-2 w-full sm:w-auto min-w-[140px] bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/30 py-3 px-6 rounded-xl text-xs uppercase tracking-widest text-white/80 hover:text-white transition-all duration-300 group/btn"
+            >
+              <Phone size={14} className="text-white/60 group-hover/btn:text-white group-hover/btn:animate-pulse transition-colors" />
+              <span>Позвонить</span>
+            </a>
+            
+            <a 
+              href="https://wa.me/79194676701" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="flex items-center justify-center gap-2 w-full sm:w-auto min-w-[140px] bg-[#25D366]/5 hover:bg-[#25D366]/10 border border-[#25D366]/20 hover:border-[#25D366]/50 py-3 px-6 rounded-xl text-xs uppercase tracking-widest text-[#25D366] transition-all duration-300 group/btn"
+            >
+              <MessageSquare size={14} className="text-[#25D366] opacity-80 group-hover/btn:opacity-100 transition-opacity" />
+              <span className="font-medium">WhatsApp</span>
+            </a>
+
+            <a 
+              href="https://t.me/ultravinci" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="flex items-center justify-center gap-2 w-full sm:w-auto min-w-[140px] bg-[#0088cc]/5 hover:bg-[#0088cc]/10 border border-[#0088cc]/20 hover:border-[#0088cc]/50 py-3 px-6 rounded-xl text-xs uppercase tracking-widest text-[#0088cc] transition-all duration-300 group/btn"
+            >
+              <Send size={14} className="text-[#0088cc] opacity-80 group-hover/btn:opacity-100 transition-opacity" />
+              <span className="font-medium">Telegram</span>
+            </a>
           </div>
         </div>
 
