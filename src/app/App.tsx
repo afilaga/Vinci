@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Toaster } from 'sonner';
 import { motion, useScroll } from 'motion/react';
 import { CustomCursor } from './components/CustomCursor';
@@ -18,8 +18,18 @@ import { Footer } from './components/Footer';
 export default function App() {
   const { scrollYProgress } = useScroll();
 
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+      document.documentElement.classList.remove('dark');
+    } else {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    }
+  }, []);
+
   return (
-    <div className="w-full min-h-screen bg-black font-sans selection:bg-white selection:text-black">
+    <div className="w-full min-h-screen bg-background text-foreground font-sans selection:bg-foreground selection:text-background transition-colors duration-500 relative">
       <CustomCursor />
       
       <motion.div 

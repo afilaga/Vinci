@@ -1,17 +1,34 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Phone, MessageSquare, Send } from 'lucide-react';
+import { Menu, X, Phone, MessageSquare, Send, Sun, Moon } from 'lucide-react';
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
     window.addEventListener('scroll', handleScroll);
+    
+    // Initialize theme state from DOM
+    const isDark = document.documentElement.classList.contains('dark');
+    setTheme(isDark ? 'dark' : 'light');
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const toggleTheme = () => {
+    const nextTheme = theme === 'dark' ? 'light' : 'dark';
+    if (nextTheme === 'light') {
+      document.documentElement.classList.remove('dark');
+    } else {
+      document.documentElement.classList.add('dark');
+    }
+    setTheme(nextTheme);
+    localStorage.setItem('theme', nextTheme);
+  };
 
   const navLinks = [
     { name: 'О проекте', href: '#about' },
@@ -46,7 +63,7 @@ export const Navbar = () => {
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-500 ease-in-out ${
         isScrolled 
-          ? 'bg-black/40 backdrop-blur-xl py-3 border-b border-white/5' 
+          ? 'bg-background/80 backdrop-blur-xl py-3 border-b border-foreground/5' 
           : 'bg-transparent py-8'
       }`}
     >
@@ -59,7 +76,7 @@ export const Navbar = () => {
           <img 
             src="images/logo_new.png" 
             alt="A² Logo" 
-            className="h-12 w-auto object-contain brightness-0 invert" 
+            className="h-12 w-auto object-contain brightness-0 dark:invert transition-all duration-500" 
           />
         </a>
 
@@ -71,19 +88,31 @@ export const Navbar = () => {
                 key={link.name}
                 href={link.href}
                 onClick={(e) => scrollToSection(e, link.href)}
-                className="text-gray-300 hover:text-white text-sm uppercase tracking-widest transition-colors duration-200"
+                className="text-foreground/75 hover:text-foreground text-sm uppercase tracking-widest transition-colors duration-200"
               >
                 {link.name}
               </a>
             ))}
           </div>
 
-          <div className="h-4 w-[1px] bg-white/15" />
+          <div className="h-4 w-[1px] bg-foreground/15" />
 
+          {/* Direct Contacts & Theme Switcher */}
           <div className="flex items-center gap-4">
+            <button
+              onClick={toggleTheme}
+              className="text-foreground/60 hover:text-foreground transition-all duration-300 p-1 cursor-pointer hover:scale-110 active:scale-95"
+              title={theme === 'dark' ? 'Дневной режим' : 'Ночной режим'}
+              aria-label="Смена темы"
+            >
+              {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
+
+            <div className="h-4 w-[1px] bg-foreground/15" />
+
             <a 
               href="tel:+79194676701"
-              className="text-white/60 hover:text-white transition-colors"
+              className="text-foreground/60 hover:text-foreground transition-colors"
               title="Позвонить"
             >
               <Phone size={18} />
@@ -112,9 +141,20 @@ export const Navbar = () => {
         {/* Mobile Menu Toggle and Direct Contacts */}
         <div className="flex md:hidden items-center gap-4">
           <div className="flex items-center gap-3">
+            <button
+              onClick={toggleTheme}
+              className="text-foreground/60 hover:text-foreground transition-colors p-1 cursor-pointer hover:scale-105"
+              title={theme === 'dark' ? 'Дневной режим' : 'Ночной режим'}
+              aria-label="Смена темы"
+            >
+              {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+            </button>
+            
+            <div className="h-5 w-[1px] bg-foreground/15 mx-1" />
+
             <a 
               href="tel:+79194676701"
-              className="text-white/60 hover:text-white transition-colors p-1"
+              className="text-foreground/60 hover:text-foreground transition-colors p-1"
               title="Позвонить"
             >
               <Phone size={20} />
@@ -140,7 +180,7 @@ export const Navbar = () => {
           </div>
           
           <button
-            className="text-white p-1"
+            className="text-foreground p-1"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -151,34 +191,34 @@ export const Navbar = () => {
 
       {/* Mobile Nav Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 w-full bg-black/95 backdrop-blur-md flex flex-col py-6 px-6 gap-6 shadow-2xl border-t border-gray-800 max-h-[80dvh] overflow-y-auto">
+        <div className="md:hidden absolute top-full left-0 w-full bg-background/95 backdrop-blur-md flex flex-col py-6 px-6 gap-6 shadow-2xl border-t border-foreground/10 max-h-[80dvh] overflow-y-auto transition-colors duration-500">
           {navLinks.map((link) => (
             <a
               key={link.name}
               href={link.href}
               onClick={(e) => scrollToSection(e, link.href)}
-              className="text-white text-lg uppercase tracking-widest border-b border-gray-800 pb-4"
+              className="text-foreground text-lg uppercase tracking-widest border-b border-foreground/10 pb-4"
             >
               {link.name}
             </a>
           ))}
 
           {/* Contacts Grid inside drawer */}
-          <div className="pt-4 pb-2 border-t border-gray-800">
-            <h4 className="text-[10px] uppercase tracking-[0.4em] text-gray-500 mb-4">Связаться в один клик</h4>
+          <div className="pt-4 pb-2 border-t border-foreground/10">
+            <h4 className="text-[10px] uppercase tracking-[0.4em] text-foreground/50 mb-4">Связаться в один клик</h4>
             <div className="grid grid-cols-3 gap-3">
               <a 
                 href="tel:+79194676701"
-                className="flex flex-col items-center justify-center gap-2 bg-white/5 border border-white/10 py-3 rounded-xl transition-all"
+                className="flex flex-col items-center justify-center gap-2 bg-foreground/5 border border-foreground/10 py-3 rounded-xl transition-all"
               >
-                <Phone size={18} className="text-white/60" />
-                <span className="text-[10px] uppercase tracking-wider text-white/80 font-light">Звонок</span>
+                <Phone size={18} className="text-foreground/60" />
+                <span className="text-[10px] uppercase tracking-wider text-foreground/80 font-light">Звонок</span>
               </a>
               <a 
                 href="https://wa.me/79194676701"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex flex-col items-center justify-center gap-2 bg-[#25D366]/5 border border-[#25D366]/20 py-3 rounded-xl transition-all"
+                className="flex flex-col items-center justify-center gap-2 bg-[#25D366]/5 dark:bg-[#25D366]/10 border border-[#25D366]/20 py-3 rounded-xl transition-all"
               >
                 <MessageSquare size={18} className="text-[#25D366]" />
                 <span className="text-[10px] uppercase tracking-wider text-[#25D366] font-medium">WhatsApp</span>
@@ -187,7 +227,7 @@ export const Navbar = () => {
                 href="https://t.me/ultravinci"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex flex-col items-center justify-center gap-2 bg-[#0088cc]/5 border border-[#0088cc]/20 py-3 rounded-xl transition-all"
+                className="flex flex-col items-center justify-center gap-2 bg-[#0088cc]/5 dark:bg-[#0088cc]/10 border border-[#0088cc]/20 py-3 rounded-xl transition-all"
               >
                 <Send size={18} className="text-[#0088cc]" />
                 <span className="text-[10px] uppercase tracking-wider text-[#0088cc] font-medium">Telegram</span>

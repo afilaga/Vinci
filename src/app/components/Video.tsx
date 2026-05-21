@@ -28,9 +28,9 @@ export const Video = () => {
   };
 
   return (
-    <section id="video" className="py-24 md:py-32 bg-[#030303] text-white relative overflow-hidden">
+    <section id="video" className="py-24 md:py-32 bg-background text-foreground relative overflow-hidden transition-colors duration-500">
       {/* Background ambient glow behind the video */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-white/[0.015] rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-foreground/[0.015] rounded-full blur-[140px] pointer-events-none transition-colors duration-500" />
       
       <div className="container mx-auto px-6 md:px-12 text-center relative z-10">
         
@@ -42,9 +42,9 @@ export const Video = () => {
           transition={{ duration: 0.6 }}
           className="mb-16 space-y-4"
         >
-          <span className="text-xs uppercase tracking-[0.3em] text-white/40 font-semibold">Live промо</span>
-          <h2 className="text-4xl md:text-5xl font-light uppercase tracking-widest text-white">Живое выступление</h2>
-          <p className="text-white/60 font-light text-base md:text-lg max-w-xl mx-auto leading-relaxed">
+          <span className="text-xs uppercase tracking-[0.3em] text-foreground/40 font-semibold transition-colors duration-500">Live промо</span>
+          <h2 className="text-4xl md:text-5xl font-light uppercase tracking-widest text-foreground transition-colors duration-500">Живое выступление</h2>
+          <p className="text-foreground/60 font-light text-base md:text-lg max-w-xl mx-auto leading-relaxed transition-colors duration-500">
             Почувствуйте невероятную атмосферу и энергетику нашего живого выступления. Видео-презентация дуэта A²: вокал и саксофон.
           </p>
         </motion.div>
@@ -57,7 +57,7 @@ export const Video = () => {
           transition={{ duration: 0.8 }}
           className="max-w-4xl mx-auto"
         >
-          <div className="relative aspect-video rounded-3xl overflow-hidden border border-white/10 bg-black/40 shadow-[0_0_50px_rgba(255,255,255,0.02)] backdrop-blur-sm group">
+          <div className="relative aspect-video rounded-3xl overflow-hidden border border-foreground/10 bg-background/40 shadow-[0_0_50px_rgba(0,0,0,0.02)] dark:shadow-[0_0_50px_rgba(255,255,255,0.02)] backdrop-blur-sm group transition-all duration-500">
             
             {/* Native HTML5 Video Element */}
             <video

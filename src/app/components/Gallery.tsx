@@ -32,7 +32,7 @@ export const Gallery = () => {
   };
 
   return (
-    <section id="gallery" className="py-24 bg-white text-black">
+    <section id="gallery" className="py-24 bg-background text-foreground transition-colors duration-500">
       <div className="container mx-auto px-6 md:px-12">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
@@ -42,7 +42,7 @@ export const Gallery = () => {
           className="flex justify-between items-end mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-light uppercase tracking-widest">Галерея</h2>
-          <a href="#booking" className="hidden md:inline-block text-sm uppercase tracking-widest border-b border-black pb-1 hover:text-gray-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-4 transition-colors duration-200">
+          <a href="#booking" className="hidden md:inline-block text-sm uppercase tracking-widest border-b border-foreground pb-1 hover:text-foreground/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-4 transition-colors duration-200">
             Забронировать выступление
           </a>
         </motion.div>
@@ -57,7 +57,7 @@ export const Gallery = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="overflow-hidden group cursor-pointer relative w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black border-none bg-transparent p-0 block"
+                className="overflow-hidden group cursor-pointer relative w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground border-none bg-transparent p-0 block"
                 aria-label={`Открыть просмотр изображения: ${photo.alt}`}
               >
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center" aria-hidden="true">
@@ -76,7 +76,7 @@ export const Gallery = () => {
         </ResponsiveMasonry>
 
         <div className="mt-12 text-center md:hidden">
-          <a href="#booking" className="inline-block text-sm uppercase tracking-widest border-b border-black pb-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-4">
+          <a href="#booking" className="inline-block text-sm uppercase tracking-widest border-b border-foreground pb-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-4">
             Забронировать выступление
           </a>
         </div>

@@ -4,7 +4,7 @@ import { ImageWithFallback } from './figma/ImageWithFallback';
 
 export const About = () => {
   return (
-    <section id="about" className="py-24 md:py-32 bg-black text-white relative overflow-hidden">
+    <section id="about" className="py-24 md:py-32 bg-background text-foreground relative overflow-hidden transition-colors duration-500">
       <div className="container mx-auto px-6 md:px-12">
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center mb-32">
@@ -24,9 +24,9 @@ export const About = () => {
                 className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
               />
             </div>
-            <div className="absolute inset-0 border border-gray-800 translate-x-4 translate-y-4 group-hover:translate-x-2 group-hover:translate-y-2 transition-transform duration-700 ease-out pointer-events-none" />
+            <div className="absolute inset-0 border border-foreground/10 translate-x-4 translate-y-4 group-hover:translate-x-2 group-hover:translate-y-2 transition-transform duration-700 ease-out pointer-events-none" />
           </motion.div>
-
+ 
           <motion.div 
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -34,34 +34,34 @@ export const About = () => {
             transition={{ duration: 0.8 }}
             className="order-1 lg:order-2 flex flex-col justify-center"
           >
-            <h2 className="text-4xl md:text-5xl font-light mb-8 uppercase tracking-widest text-white">
+            <h2 className="text-4xl md:text-5xl font-light mb-8 uppercase tracking-widest text-foreground transition-colors duration-500">
               О проекте
             </h2>
             
-            <h3 className="text-xl text-gray-300 font-light mb-6 uppercase tracking-wider">
+            <h3 className="text-xl text-foreground/80 font-light mb-6 uppercase tracking-wider transition-colors duration-500">
               Дуэт вокала и саксофона: Полина Винчи и Михаил Акимов
             </h3>
             
-            <div className="space-y-6 text-gray-400 font-light text-lg leading-relaxed">
+            <div className="space-y-6 text-foreground/70 font-light text-lg leading-relaxed transition-colors duration-500">
               <p>
-                <strong className="text-white font-normal">A² (Ardor Squared)</strong> — это камерный дуэт, в котором вокал и саксофон звучат как единый организм. Минимум средств, максимум выразительности.
+                <strong className="text-foreground font-normal transition-colors duration-500">A² (Ardor Squared)</strong> — это камерный дуэт, в котором вокал и саксофон звучат как единый организм. Минимум средств, максимум выразительности.
               </p>
               <p>
                 Мы сочетаем живое исполнение, аутентичное звучание, авторские аранжировки и гибкий формат, подходящий как для частных мероприятий, так и для уютных вечеров.
               </p>
             </div>
-
-            <div className="mt-12 p-8 bg-white/5 backdrop-blur-lg border border-white/10 relative shadow-2xl">
-              <div className="absolute -top-3 left-8 bg-black border border-white/10 px-4 py-1 text-[10px] uppercase tracking-[0.3em] text-gray-400">Философия</div>
-              <p className="text-gray-300 font-light italic leading-relaxed text-lg">
+ 
+            <div className="mt-12 p-8 bg-foreground/5 backdrop-blur-lg border border-foreground/10 relative shadow-2xl transition-all duration-500">
+              <div className="absolute -top-3 left-8 bg-background border border-foreground/10 px-4 py-1 text-[10px] uppercase tracking-[0.3em] text-foreground/60 transition-colors duration-500">Философия</div>
+              <p className="text-foreground/80 font-light italic leading-relaxed text-lg transition-colors duration-500">
                 «Название отражает нашу философию: два разных тембра, два разных подхода, две музыкальные энергии, объединённые одной задачей — создавать звук, который трогает сердце и душу. Мы — два разных темперамента, два разных оттенка, которые вместе создают цельное, естественное и тёплое звучание.»
               </p>
             </div>
           </motion.div>
         </div>
-
+ 
         {/* Members */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 lg:gap-24 border-t border-gray-900 pt-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 lg:gap-24 border-t border-foreground/10 pt-24 transition-colors duration-500">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -69,10 +69,10 @@ export const About = () => {
             transition={{ duration: 0.6 }}
             className="group cursor-pointer"
           >
-            <h3 className="text-2xl font-medium mb-2 group-hover:text-white transition-colors">Полина Винчи</h3>
-            <p className="text-sm uppercase tracking-widest text-gray-500 mb-6">Вокал</p>
-            <div className="space-y-4 text-gray-400 font-light leading-relaxed">
-              <div className="mb-6 relative aspect-square w-48 overflow-hidden rounded-full border border-gray-800">
+            <h3 className="text-2xl font-medium mb-2 group-hover:text-foreground transition-colors">Полина Винчи</h3>
+            <p className="text-sm uppercase tracking-widest text-foreground/50 mb-6 transition-colors duration-500">Вокал</p>
+            <div className="space-y-4 text-foreground/70 font-light leading-relaxed transition-colors duration-500">
+              <div className="mb-6 relative aspect-square w-48 overflow-hidden rounded-full border border-foreground/10 transition-colors duration-500">
                 <ImageWithFallback
                   src="images/polina.jpg"
                   alt="Polina Vinci"
@@ -87,7 +87,7 @@ export const About = () => {
               </p>
             </div>
           </motion.div>
-
+ 
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -95,10 +95,10 @@ export const About = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="group cursor-pointer"
           >
-            <h3 className="text-2xl font-medium mb-2 group-hover:text-white transition-colors">Михаил Акимов</h3>
-            <p className="text-sm uppercase tracking-widest text-gray-500 mb-6">Саксофон</p>
-            <div className="space-y-4 text-gray-400 font-light leading-relaxed">
-              <div className="mb-6 relative aspect-square w-48 overflow-hidden rounded-full border border-gray-800">
+            <h3 className="text-2xl font-medium mb-2 group-hover:text-foreground transition-colors">Михаил Акимов</h3>
+            <p className="text-sm uppercase tracking-widest text-foreground/50 mb-6 transition-colors duration-500">Саксофон</p>
+            <div className="space-y-4 text-foreground/70 font-light leading-relaxed transition-colors duration-500">
+              <div className="mb-6 relative aspect-square w-48 overflow-hidden rounded-full border border-foreground/10 transition-colors duration-500">
                 <ImageWithFallback
                   src="images/mikhail.jpg"
                   alt="Mikhail Akimov"
@@ -114,7 +114,7 @@ export const About = () => {
             </div>
           </motion.div>
         </div>
-
+ 
       </div>
     </section>
   );

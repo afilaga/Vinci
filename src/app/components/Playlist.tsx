@@ -145,10 +145,10 @@ export const Playlist = () => {
   ];
 
   return (
-    <section id="playlist" className="py-24 md:py-32 bg-black text-white relative overflow-hidden">
+    <section id="playlist" className="py-24 md:py-32 bg-background text-foreground relative overflow-hidden transition-colors duration-500">
       {/* Background ambient glows */}
-      <div className="absolute top-0 right-1/4 w-96 h-96 bg-white/[0.02] rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 left-1/4 w-64 h-64 bg-white/[0.03] rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-0 right-1/4 w-96 h-96 bg-foreground/[0.02] rounded-full blur-[120px] pointer-events-none transition-colors duration-500" />
+      <div className="absolute bottom-0 left-1/4 w-64 h-64 bg-foreground/[0.03] rounded-full blur-[100px] pointer-events-none transition-colors duration-500" />
 
       <div className="container mx-auto px-6 md:px-12 relative z-10">
         
@@ -163,7 +163,7 @@ export const Playlist = () => {
             <h2 className="text-4xl md:text-5xl font-light uppercase tracking-widest mb-6">
               Плейлист A²
             </h2>
-            <p className="text-white/60 font-light text-base md:text-lg leading-relaxed max-w-2xl">
+            <p className="text-foreground/60 font-light text-base md:text-lg leading-relaxed max-w-2xl transition-colors duration-500">
               Наш репертуар, структурированный по музыкальным направлениям. Нажмите на интересующую категорию, чтобы открыть полный список композиций.
             </p>
           </motion.div>
@@ -180,19 +180,19 @@ export const Playlist = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: catIndex * 0.1 }}
-                className="border border-white/10 rounded-2xl overflow-hidden bg-white/5 backdrop-blur-md transition-all duration-300 hover:border-white/20"
+                className="border border-foreground/10 rounded-2xl overflow-hidden bg-foreground/5 backdrop-blur-md transition-all duration-300 hover:border-foreground/20"
               >
                 <button 
                   onClick={() => toggleCategory(category.key)}
-                  className="flex items-center justify-between w-full py-6 px-6 md:px-8 hover:bg-white/5 cursor-pointer transition-colors duration-300 text-left"
+                  className="flex items-center justify-between w-full py-6 px-6 md:px-8 hover:bg-foreground/5 cursor-pointer transition-colors duration-300 text-left"
                 >
                   <div className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-4">
-                    <span className="text-base md:text-lg lg:text-xl font-light uppercase tracking-widest text-white">{category.title}</span>
-                    <span className="text-[10px] md:text-xs text-white/40 font-mono tracking-wider">
+                    <span className="text-base md:text-lg lg:text-xl font-light uppercase tracking-widest text-foreground transition-colors duration-500">{category.title}</span>
+                    <span className="text-[10px] md:text-xs text-foreground/40 font-mono tracking-wider transition-colors duration-500">
                       {category.tracks.length} {getTrackWord(category.tracks.length)}
                     </span>
                   </div>
-                  <ChevronDown className={`text-white/50 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} size={20} />
+                  <ChevronDown className={`text-foreground/50 transition-all duration-300 ${isOpen ? 'rotate-180' : ''}`} size={20} />
                 </button>
                 
                 <AnimatePresence initial={false}>
@@ -204,19 +204,19 @@ export const Playlist = () => {
                       transition={{ duration: 0.4, ease: [0.04, 0.62, 0.23, 0.98] }}
                       className="overflow-hidden"
                     >
-                      <div className="border-t border-white/10 bg-white/[0.01] py-4 px-6 md:px-8 divide-y divide-white/5">
+                      <div className="border-t border-foreground/10 bg-foreground/[0.01] py-4 px-6 md:px-8 divide-y divide-foreground/5 transition-colors duration-500">
                         {category.tracks.map((track, index) => (
                           <div 
                             key={track.id} 
-                            className="py-3.5 flex items-baseline gap-4 text-white/60 hover:text-white transition-colors duration-200 group"
+                            className="py-3.5 flex items-baseline gap-4 text-foreground/60 hover:text-foreground transition-colors duration-200 group"
                           >
-                            <span className="text-[10px] font-mono text-white/30 group-hover:text-white/50 transition-colors w-6 flex-shrink-0">
+                            <span className="text-[10px] font-mono text-foreground/30 group-hover:text-foreground/50 transition-colors w-6 flex-shrink-0">
                               {String(index + 1).padStart(2, '0')}
                             </span>
                             <span className="text-sm md:text-base font-light leading-relaxed">
                               {track.title}
                               {track.artist && (
-                                <span className="text-white/30 font-extralight text-xs block md:inline md:ml-2">
+                                <span className="text-foreground/30 font-extralight text-xs block md:inline md:ml-2 transition-colors duration-500">
                                   — {track.artist}
                                 </span>
                               )}

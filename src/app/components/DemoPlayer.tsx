@@ -184,10 +184,10 @@ export const DemoPlayer = () => {
   const progressPercent = duration > 0 ? (currentTime / duration) * 100 : 0;
 
   return (
-    <section id="demo" className="py-24 md:py-32 bg-[#050505] text-white relative overflow-hidden">
+    <section id="demo" className="py-24 md:py-32 bg-background text-foreground relative overflow-hidden transition-colors duration-500">
       {/* Background glow effects */}
-      <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-white/[0.03] rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] bg-white/[0.02] rounded-full blur-[90px] pointer-events-none" />
+      <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-foreground/[0.03] rounded-full blur-[120px] pointer-events-none transition-colors duration-500" />
+      <div className="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] bg-foreground/[0.02] rounded-full blur-[90px] pointer-events-none transition-colors duration-500" />
 
       <div className="container mx-auto px-6 md:px-12 relative z-10">
         
@@ -202,7 +202,7 @@ export const DemoPlayer = () => {
             <h2 className="text-4xl md:text-5xl font-light uppercase tracking-widest mb-6">
               Демо-записи
             </h2>
-            <p className="text-white/60 font-light text-lg leading-relaxed max-w-2xl">
+            <p className="text-foreground/60 font-light text-lg leading-relaxed max-w-2xl transition-colors duration-500">
               Послушайте наше живое звучание. В плеере собраны реальные записи миксов, вокальных партий и саксофонных импровизаций дуэта A².
             </p>
           </motion.div>
@@ -212,19 +212,19 @@ export const DemoPlayer = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           
           {/* Left Side: Vinyl Spinner & Controls (lg: 7 cols) */}
-          <div className="lg:col-span-7 bg-white/[0.02] backdrop-blur-md border border-white/5 rounded-3xl p-8 md:p-12 flex flex-col justify-between relative overflow-hidden shadow-2xl">
+          <div className="lg:col-span-7 bg-foreground/5 backdrop-blur-md border border-foreground/10 rounded-3xl p-8 md:p-12 flex flex-col justify-between relative overflow-hidden shadow-2xl transition-all duration-500">
             
             {/* Spinning Disk visualizer wrapper */}
             <div className="flex flex-col items-center justify-center flex-1 my-6 md:my-10 relative">
               
               {/* Spinning vinyl visual */}
-              <div className="relative w-48 h-48 md:w-64 md:h-64 rounded-full bg-neutral-900 flex items-center justify-center shadow-[0_0_40px_rgba(255,255,255,0.05)] border border-white/10 relative">
+              <div className="relative w-48 h-48 md:w-64 md:h-64 rounded-full bg-neutral-900 dark:bg-neutral-950 flex items-center justify-center shadow-[0_0_40px_rgba(0,0,0,0.08)] dark:shadow-[0_0_40px_rgba(255,255,255,0.05)] border border-foreground/10 transition-all duration-500">
                 
                 {/* Vinyl Grooves concentric rings */}
-                <div className="absolute inset-2 border border-dashed border-white/5 rounded-full" />
-                <div className="absolute inset-6 border border-white/5 rounded-full" />
-                <div className="absolute inset-12 border border-white/5 rounded-full" />
-                <div className="absolute inset-20 border border-white/5 rounded-full" />
+                <div className="absolute inset-2 border border-dashed border-foreground/5 rounded-full" />
+                <div className="absolute inset-6 border border-foreground/5 rounded-full" />
+                <div className="absolute inset-12 border border-foreground/5 rounded-full" />
+                <div className="absolute inset-20 border border-foreground/5 rounded-full" />
                 
                 {/* Rotating animation container */}
                 <motion.div
@@ -233,8 +233,8 @@ export const DemoPlayer = () => {
                   className="w-full h-full flex items-center justify-center relative rounded-full"
                 >
                   {/* Vinyl label center */}
-                  <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white/10 border border-white/20 flex items-center justify-center relative shadow-inner">
-                    <Music className="w-6 h-6 md:w-8 md:h-8 text-white/80" />
+                  <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-foreground/10 border border-foreground/20 flex items-center justify-center relative shadow-inner">
+                    <Music className="w-6 h-6 md:w-8 md:h-8 text-foreground/80 transition-colors" />
                   </div>
                 </motion.div>
 
@@ -245,9 +245,9 @@ export const DemoPlayer = () => {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
-                      className="absolute inset-0 rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center z-10"
+                      className="absolute inset-0 rounded-full bg-background/40 backdrop-blur-sm flex items-center justify-center z-10 transition-colors duration-500"
                     >
-                      <Loader2 className="w-10 h-10 text-white animate-spin" />
+                      <Loader2 className="w-10 h-10 text-foreground animate-spin" />
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -255,10 +255,10 @@ export const DemoPlayer = () => {
 
               {/* Glowing title under disk */}
               <div className="text-center mt-8 max-w-md px-4">
-                <h4 className="text-sm md:text-base font-semibold tracking-wide text-white truncate">
+                <h4 className="text-sm md:text-base font-semibold tracking-wide text-foreground truncate transition-colors duration-500">
                   {currentTrack.title}
                 </h4>
-                <p className="text-xs text-white/50 font-light tracking-widest uppercase mt-1">
+                <p className="text-xs text-foreground/50 font-light tracking-widest uppercase mt-1 transition-colors duration-500">
                   {currentTrack.artist}
                 </p>
               </div>
@@ -276,14 +276,14 @@ export const DemoPlayer = () => {
                   onTouchMove={handleProgressBarTouch}
                   className="h-4 w-full flex items-center cursor-pointer group select-none"
                 >
-                  <div className="h-1.5 w-full bg-white/10 group-hover:bg-white/25 rounded-full overflow-hidden relative transition-all">
+                  <div className="h-1.5 w-full bg-foreground/10 group-hover:bg-foreground/25 rounded-full overflow-hidden relative transition-all">
                     <div 
-                      className="absolute left-0 top-0 bottom-0 bg-white group-hover:bg-white transition-all rounded-full" 
+                      className="absolute left-0 top-0 bottom-0 bg-foreground group-hover:bg-foreground transition-all rounded-full" 
                       style={{ width: `${progressPercent}%` }}
                     />
                   </div>
                 </div>
-                <div className="flex justify-between items-center text-[10px] font-mono text-white/40 select-none">
+                <div className="flex justify-between items-center text-[10px] font-mono text-foreground/40 select-none transition-colors duration-500">
                   <span>{formatTime(currentTime)}</span>
                   <span>{duration > 0 ? formatTime(duration) : currentTrack.durationLabel}</span>
                 </div>
@@ -297,7 +297,7 @@ export const DemoPlayer = () => {
                   {[...Array(6)].map((_, i) => (
                     <motion.div
                       key={i}
-                      className="w-0.5 bg-white"
+                      className="w-0.5 bg-foreground transition-colors duration-500"
                       animate={{
                         height: isPlaying && !isLoading
                           ? [4, 18, 8, 22, 10, 4][i % 6]
@@ -318,27 +318,27 @@ export const DemoPlayer = () => {
                 <div className="flex items-center gap-6">
                   <button
                     onClick={handlePrev}
-                    className="p-2 text-white/60 hover:text-white hover:scale-105 active:scale-95 transition-all cursor-pointer"
+                    className="p-2 text-foreground/60 hover:text-foreground hover:scale-105 active:scale-95 transition-all cursor-pointer"
                     aria-label="Предыдущий трек"
                   >
-                    <SkipBack className="w-5 h-5 fill-white/10" />
+                    <SkipBack className="w-5 h-5 fill-foreground/10" />
                   </button>
 
                   <button
                     onClick={handlePlayPause}
                     disabled={isLoading}
-                    className="p-4 bg-white hover:bg-white/90 text-black rounded-full hover:scale-105 active:scale-95 transition-all cursor-pointer shadow-lg shadow-white/5 focus:outline-none"
+                    className="p-4 bg-foreground hover:bg-foreground/90 text-background rounded-full hover:scale-105 active:scale-95 transition-all cursor-pointer shadow-lg shadow-foreground/5 focus:outline-none"
                     aria-label={isPlaying ? "Пауза" : "Воспроизвести"}
                   >
-                    {isPlaying ? <Pause className="w-6 h-6 fill-black" /> : <Play className="w-6 h-6 fill-black ml-0.5" />}
+                    {isPlaying ? <Pause className="w-6 h-6 fill-background text-background" /> : <Play className="w-6 h-6 fill-background text-background ml-0.5" />}
                   </button>
 
                   <button
                     onClick={handleNext}
-                    className="p-2 text-white/60 hover:text-white hover:scale-105 active:scale-95 transition-all cursor-pointer"
+                    className="p-2 text-foreground/60 hover:text-foreground hover:scale-105 active:scale-95 transition-all cursor-pointer"
                     aria-label="Следующий трек"
                   >
-                    <SkipForward className="w-5 h-5 fill-white/10" />
+                    <SkipForward className="w-5 h-5 fill-foreground/10" />
                   </button>
                 </div>
 
@@ -346,7 +346,7 @@ export const DemoPlayer = () => {
                 <div className="hidden md:flex items-center gap-2.5">
                   <button
                     onClick={() => setIsMuted(!isMuted)}
-                    className="p-2 text-white/50 hover:text-white transition-colors cursor-pointer"
+                    className="p-2 text-foreground/50 hover:text-foreground transition-colors cursor-pointer"
                     aria-label={isMuted ? "Включить звук" : "Выключить звук"}
                   >
                     {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
@@ -361,7 +361,7 @@ export const DemoPlayer = () => {
                       setVolume(parseFloat(e.target.value));
                       setIsMuted(false);
                     }}
-                    className="w-16 md:w-20 accent-white h-1 bg-white/10 rounded-lg cursor-pointer"
+                    className="w-16 md:w-20 accent-foreground h-1 bg-foreground/10 rounded-lg cursor-pointer"
                     aria-label="Громкость"
                   />
                 </div>
@@ -373,8 +373,8 @@ export const DemoPlayer = () => {
           </div>
 
           {/* Right Side: Repertoire Playlist Selection (lg: 5 cols) */}
-          <div className="lg:col-span-5 bg-white/[0.01] border border-white/5 rounded-3xl p-6 md:p-8 flex flex-col gap-4 shadow-xl">
-            <span className="text-[10px] uppercase tracking-[0.25em] text-white/40 font-semibold mb-2">
+          <div className="lg:col-span-5 bg-foreground/[0.01] border border-foreground/10 rounded-3xl p-6 md:p-8 flex flex-col gap-4 shadow-xl transition-all duration-500">
+            <span className="text-[10px] uppercase tracking-[0.25em] text-foreground/40 font-semibold mb-2 transition-colors duration-500">
               Список демо-записей
             </span>
             
@@ -389,39 +389,39 @@ export const DemoPlayer = () => {
                     onClick={() => selectTrack(index)}
                     className={`w-full text-left p-4 rounded-2xl border transition-all duration-300 flex items-center justify-between gap-4 group cursor-pointer ${
                       isActive 
-                        ? 'bg-white/10 border-white/20 shadow-md shadow-white/5' 
-                        : 'bg-white/[0.01] border-white/5 hover:bg-white/[0.04] hover:border-white/10'
+                        ? 'bg-foreground/10 border-foreground/20 shadow-md shadow-foreground/5' 
+                        : 'bg-foreground/[0.01] border-foreground/5 hover:bg-foreground/[0.04] hover:border-foreground/10'
                     }`}
                   >
                     <div className="flex items-center gap-4 min-w-0">
                       {/* Circle visual */}
                       <div className={`w-9 h-9 rounded-xl border flex items-center justify-center flex-shrink-0 transition-all ${
                         isActive 
-                          ? 'bg-white text-black border-white' 
-                          : 'bg-white/5 border-white/5 group-hover:bg-white/10 group-hover:border-white/10'
+                          ? 'bg-foreground text-background border-foreground' 
+                          : 'bg-foreground/5 border-foreground/5 group-hover:bg-foreground/10 group-hover:border-foreground/10'
                       }`}>
                         {isThisPlaying ? (
-                          <Pause className="w-3.5 h-3.5 fill-black text-black animate-pulse" />
+                          <Pause className="w-3.5 h-3.5 fill-background text-background animate-pulse" />
                         ) : (
-                          <Play className={`w-3.5 h-3.5 ${isActive ? 'fill-black text-black' : 'fill-white/10 text-white group-hover:fill-white/80'} transition-all`} />
+                          <Play className={`w-3.5 h-3.5 ${isActive ? 'fill-background text-background' : 'fill-foreground/10 text-foreground group-hover:fill-foreground/80'} transition-all`} />
                         )}
                       </div>
                       
                       {/* Meta */}
                       <div className="min-w-0">
                         <h4 className={`text-xs md:text-sm font-semibold truncate transition-colors ${
-                          isActive ? 'text-white' : 'text-white/80 group-hover:text-white'
+                          isActive ? 'text-foreground' : 'text-foreground/80 group-hover:text-foreground'
                         }`}>
                           {track.title}
                         </h4>
-                        <p className="text-[10px] md:text-xs text-white/40 group-hover:text-white/60 font-light truncate mt-0.5">
+                        <p className="text-[10px] md:text-xs text-foreground/40 group-hover:text-foreground/60 font-light truncate mt-0.5">
                           {track.artist}
                         </p>
                       </div>
                     </div>
 
                     {/* Duration Label */}
-                    <span className="text-[10px] font-mono text-white/30 group-hover:text-white/60 flex-shrink-0">
+                    <span className="text-[10px] font-mono text-foreground/30 group-hover:text-foreground/60 flex-shrink-0">
                       {track.durationLabel}
                     </span>
                   </button>
@@ -430,7 +430,7 @@ export const DemoPlayer = () => {
             </div>
 
             {/* Ambient note footer decoration */}
-            <div className="pt-4 border-t border-white/5 flex items-center gap-2 text-white/30 mt-auto">
+            <div className="pt-4 border-t border-foreground/5 flex items-center gap-2 text-foreground/30 mt-auto transition-colors duration-500">
               <Volume2 className="w-3.5 h-3.5" />
               <span className="text-[9px] uppercase tracking-widest">
                 Студийное качество • 44.1 kHz WAV
