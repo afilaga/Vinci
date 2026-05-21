@@ -6,6 +6,7 @@ import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { About } from './components/About';
 import { Repertoire } from './components/Repertoire';
+import { DemoPlayer } from './components/DemoPlayer';
 import { Playlist } from './components/Playlist';
 import { Gallery } from './components/Gallery';
 import { Video } from './components/Video';
@@ -31,6 +32,7 @@ export default function App() {
         <Hero />
         <About />
         <Repertoire />
+        <DemoPlayer />
         <Playlist />
         <Gallery />
         <Video />
