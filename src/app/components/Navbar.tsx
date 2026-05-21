@@ -20,6 +20,7 @@ export const Navbar = () => {
     { name: 'Плейлист', href: '#playlist' },
     { name: 'Галерея', href: '#gallery' },
     { name: 'Видео', href: '#video' },
+    { name: 'Райдеры', href: '#riders' },
     { name: 'Бронирование', href: '#booking' },
   ];
 

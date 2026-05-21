@@ -10,6 +10,7 @@ import { DemoPlayer } from './components/DemoPlayer';
 import { Playlist } from './components/Playlist';
 import { Gallery } from './components/Gallery';
 import { Video } from './components/Video';
+import { Riders } from './components/Riders';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 
@@ -36,6 +37,7 @@ export default function App() {
         <Playlist />
         <Gallery />
         <Video />
+        <Riders />
         <Contact />
       </main>
       <Footer />
