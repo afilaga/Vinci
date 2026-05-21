@@ -72,7 +72,7 @@ export const Repertoire = () => {
         </div>
 
         {/* Repertoire Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-32">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 mb-32">
           {repertoireItems.map((item, index) => (
             <motion.div 
               key={index}
@@ -80,11 +80,13 @@ export const Repertoire = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: index * 0.1, ease: [0.215, 0.61, 0.355, 1] }}
-              className="bg-white/5 backdrop-blur-md border border-white/10 p-8 hover:bg-white/10 hover:border-white/20 hover:-translate-y-1 transition-all duration-500 group relative overflow-hidden"
+              className={`bg-white/5 backdrop-blur-md border border-white/10 p-5 md:p-8 hover:bg-white/10 hover:border-white/20 hover:-translate-y-1 transition-all duration-500 group relative overflow-hidden ${
+                index === 4 ? 'col-span-2 lg:col-span-1' : ''
+              }`}
             >
               <div className="w-12 h-[1px] bg-white/30 mb-6 group-hover:w-full transition-all duration-700" />
-              <h3 className="text-xl font-medium mb-4 tracking-wide text-white group-hover:text-white transition-colors">{item.title}</h3>
-              <p className="text-white/50 font-light leading-relaxed text-sm group-hover:text-white/80 transition-colors">{item.desc}</p>
+              <h3 className="text-base md:text-xl font-medium mb-4 tracking-wide text-white group-hover:text-white transition-colors">{item.title}</h3>
+              <p className="text-white/50 font-light leading-relaxed text-xs md:text-sm group-hover:text-white/80 transition-colors">{item.desc}</p>
             </motion.div>
           ))}
         </div>

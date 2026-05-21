@@ -63,7 +63,7 @@ export const Hero = () => {
           transition={{ duration: 1, delay: 0.8, ease: "easeOut" }}
           className="mt-6 max-w-3xl mx-auto text-sm md:text-base text-white/65 leading-7 font-light"
         >
-          Камерный музыкальный проект для частных событий, welcome-зон, коктейльных сетов и атмосферных вечеров.
+          Музыкальный проект для частных событий в Москве
         </motion.p>
         
         <motion.div

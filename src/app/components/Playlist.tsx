@@ -1,5 +1,6 @@
-import React from 'react';
-import { motion } from 'motion/react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { ChevronDown } from 'lucide-react';
 
 interface Track {
   id: string;
@@ -111,6 +112,38 @@ const CHRISTMAS: Track[] = [
 ];
 
 export const Playlist = () => {
+  const [openCategories, setOpenCategories] = useState<Record<string, boolean>>({
+    mashups: false,
+    jazz: false,
+    soviet: false,
+    christmas: false,
+    other: false,
+  });
+
+  const toggleCategory = (key: string) => {
+    setOpenCategories(prev => ({
+      ...prev,
+      [key]: !prev[key]
+    }));
+  };
+
+  const getTrackWord = (count: number) => {
+    const lastDigit = count % 10;
+    const lastTwoDigits = count % 100;
+    if (lastTwoDigits >= 11 && lastTwoDigits <= 14) return 'треков';
+    if (lastDigit === 1) return 'трек';
+    if (lastDigit >= 2 && lastDigit <= 4) return 'трека';
+    return 'треков';
+  };
+
+  const CATEGORIES = [
+    { key: 'mashups', title: 'Mash Ups', tracks: MASHUPS },
+    { key: 'jazz', title: 'Jazz / Welcome', tracks: JAZZ },
+    { key: 'soviet', title: 'Советское', tracks: SOVIET },
+    { key: 'christmas', title: 'Christmas', tracks: CHRISTMAS },
+    { key: 'other', title: 'Other', tracks: OTHER },
+  ];
+
   return (
     <section id="playlist" className="py-24 md:py-32 bg-black text-white relative overflow-hidden">
       {/* Background ambient glows */}
@@ -120,7 +153,7 @@ export const Playlist = () => {
       <div className="container mx-auto px-6 md:px-12 relative z-10">
         
         {/* Title Block */}
-        <div className="max-w-4xl mb-20">
+        <div className="max-w-4xl mb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -130,181 +163,73 @@ export const Playlist = () => {
             <h2 className="text-4xl md:text-5xl font-light uppercase tracking-widest mb-6">
               Плейлист A²
             </h2>
-            <p className="text-white/60 font-light text-lg leading-relaxed max-w-2xl">
-              Наш репертуар, структурированный по музыкальным направлениям. Вы можете легко ознакомиться со списками композиций для Вашего мероприятия.
+            <p className="text-white/60 font-light text-base md:text-lg leading-relaxed max-w-2xl">
+              Наш репертуар, структурированный по музыкальным направлениям. Нажмите на интересующую категорию, чтобы открыть полный список композиций.
             </p>
           </motion.div>
         </div>
 
-        {/* Categories Grid - 2 columns on desktop */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-20 items-start">
-          
-          {/* Column 1 */}
-          <div className="space-y-20">
-            {/* Mash Ups */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
-            >
-              <h3 className="text-xl md:text-2xl font-light uppercase tracking-widest mb-6 text-white border-b border-white/10 pb-4">
-                Mash Ups
-              </h3>
-              <div className="divide-y divide-white/5">
-                {MASHUPS.map((track, index) => (
-                  <div 
-                    key={track.id} 
-                    className="py-3.5 flex items-baseline gap-4 text-white/60 hover:text-white transition-colors duration-200 group"
-                  >
-                    <span className="text-[10px] font-mono text-white/30 group-hover:text-white/50 transition-colors w-6 flex-shrink-0">
-                      {String(index + 1).padStart(2, '0')}
-                    </span>
-                    <span className="text-sm md:text-base font-light leading-relaxed">
-                      {track.title}
-                      {track.artist && track.artist !== 'A² Mash-Up' && (
-                        <span className="text-white/30 font-extralight text-xs block md:inline md:ml-2">
-                          — {track.artist}
-                        </span>
-                      )}
+        {/* Collapsible Accordions List */}
+        <div className="max-w-4xl mx-auto space-y-6">
+          {CATEGORIES.map((category, catIndex) => {
+            const isOpen = !!openCategories[category.key];
+            return (
+              <motion.div
+                key={category.key}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: catIndex * 0.1 }}
+                className="border border-white/10 rounded-2xl overflow-hidden bg-white/5 backdrop-blur-md transition-all duration-300 hover:border-white/20"
+              >
+                <button 
+                  onClick={() => toggleCategory(category.key)}
+                  className="flex items-center justify-between w-full py-6 px-6 md:px-8 hover:bg-white/5 cursor-pointer transition-colors duration-300 text-left"
+                >
+                  <div className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-4">
+                    <span className="text-base md:text-lg lg:text-xl font-light uppercase tracking-widest text-white">{category.title}</span>
+                    <span className="text-[10px] md:text-xs text-white/40 font-mono tracking-wider">
+                      {category.tracks.length} {getTrackWord(category.tracks.length)}
                     </span>
                   </div>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Christmas */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
-            >
-              <h3 className="text-xl md:text-2xl font-light uppercase tracking-widest mb-6 text-white border-b border-white/10 pb-4">
-                Christmas
-              </h3>
-              <div className="divide-y divide-white/5">
-                {CHRISTMAS.map((track, index) => (
-                  <div 
-                    key={track.id} 
-                    className="py-3.5 flex items-baseline gap-4 text-white/60 hover:text-white transition-colors duration-200 group"
-                  >
-                    <span className="text-[10px] font-mono text-white/30 group-hover:text-white/50 transition-colors w-6 flex-shrink-0">
-                      {String(index + 1).padStart(2, '0')}
-                    </span>
-                    <span className="text-sm md:text-base font-light leading-relaxed">
-                      {track.title}
-                      {track.artist && (
-                        <span className="text-white/30 font-extralight text-xs block md:inline md:ml-2">
-                          — {track.artist}
-                        </span>
-                      )}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Other */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
-            >
-              <h3 className="text-xl md:text-2xl font-light uppercase tracking-widest mb-6 text-white border-b border-white/10 pb-4">
-                Other
-              </h3>
-              <div className="divide-y divide-white/5">
-                {OTHER.map((track, index) => (
-                  <div 
-                    key={track.id} 
-                    className="py-3.5 flex items-baseline gap-4 text-white/60 hover:text-white transition-colors duration-200 group"
-                  >
-                    <span className="text-[10px] font-mono text-white/30 group-hover:text-white/50 transition-colors w-6 flex-shrink-0">
-                      {String(index + 1).padStart(2, '0')}
-                    </span>
-                    <span className="text-sm md:text-base font-light leading-relaxed">
-                      {track.title}
-                      {track.artist && (
-                        <span className="text-white/30 font-extralight text-xs block md:inline md:ml-2">
-                          — {track.artist}
-                        </span>
-                      )}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-          </div>
-
-          {/* Column 2 */}
-          <div className="space-y-20">
-            {/* Jazz / Welcome */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
-            >
-              <h3 className="text-xl md:text-2xl font-light uppercase tracking-widest mb-6 text-white border-b border-white/10 pb-4">
-                Jazz / Welcome
-              </h3>
-              <div className="divide-y divide-white/5">
-                {JAZZ.map((track, index) => (
-                  <div 
-                    key={track.id} 
-                    className="py-3.5 flex items-baseline gap-4 text-white/60 hover:text-white transition-colors duration-200 group"
-                  >
-                    <span className="text-[10px] font-mono text-white/30 group-hover:text-white/50 transition-colors w-6 flex-shrink-0">
-                      {String(index + 1).padStart(2, '0')}
-                    </span>
-                    <span className="text-sm md:text-base font-light leading-relaxed">
-                      {track.title}
-                      {track.artist && (
-                        <span className="text-white/30 font-extralight text-xs block md:inline md:ml-2">
-                          — {track.artist}
-                        </span>
-                      )}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Советское */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
-            >
-              <h3 className="text-xl md:text-2xl font-light uppercase tracking-widest mb-6 text-white border-b border-white/10 pb-4">
-                Советское
-              </h3>
-              <div className="divide-y divide-white/5">
-                {SOVIET.map((track, index) => (
-                  <div 
-                    key={track.id} 
-                    className="py-3.5 flex items-baseline gap-4 text-white/60 hover:text-white transition-colors duration-200 group"
-                  >
-                    <span className="text-[10px] font-mono text-white/30 group-hover:text-white/50 transition-colors w-6 flex-shrink-0">
-                      {String(index + 1).padStart(2, '0')}
-                    </span>
-                    <span className="text-sm md:text-base font-light leading-relaxed">
-                      {track.title}
-                      {track.artist && (
-                        <span className="text-white/30 font-extralight text-xs block md:inline md:ml-2">
-                          — {track.artist}
-                        </span>
-                      )}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-          </div>
-
+                  <ChevronDown className={`text-white/50 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} size={20} />
+                </button>
+                
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.4, ease: [0.04, 0.62, 0.23, 0.98] }}
+                      className="overflow-hidden"
+                    >
+                      <div className="border-t border-white/10 bg-white/[0.01] py-4 px-6 md:px-8 divide-y divide-white/5">
+                        {category.tracks.map((track, index) => (
+                          <div 
+                            key={track.id} 
+                            className="py-3.5 flex items-baseline gap-4 text-white/60 hover:text-white transition-colors duration-200 group"
+                          >
+                            <span className="text-[10px] font-mono text-white/30 group-hover:text-white/50 transition-colors w-6 flex-shrink-0">
+                              {String(index + 1).padStart(2, '0')}
+                            </span>
+                            <span className="text-sm md:text-base font-light leading-relaxed">
+                              {track.title}
+                              {track.artist && (
+                                <span className="text-white/30 font-extralight text-xs block md:inline md:ml-2">
+                                  — {track.artist}
+                                </span>
+                              )}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            );
+          })}
         </div>
 
       </div>

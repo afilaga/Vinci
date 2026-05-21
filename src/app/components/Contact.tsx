@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
-import { Mail, Phone, MessageSquare, Send } from 'lucide-react';
+import { Phone, MessageSquare, Send } from 'lucide-react';
 
 type BookingFormData = {
   name: string;
@@ -120,16 +120,6 @@ export const Contact = () => {
             <h3 className="text-2xl font-light uppercase tracking-[0.3em] mb-10 relative z-10">Контакты</h3>
             
             <div className="space-y-10 relative z-10">
-              <div className="group">
-                <h4 className="text-[10px] uppercase tracking-[0.4em] text-gray-500 mb-3 group-hover:text-white transition-colors">Менеджмент и букинг</h4>
-                <a 
-                  href="mailto:booking@a2duo.com" 
-                  className="flex items-center gap-3 w-full bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/30 py-4 px-6 rounded-xl transition-all duration-300 group/btn"
-                >
-                  <Mail size={18} className="text-white/60 group-hover/btn:text-white transition-colors" />
-                  <span className="text-sm font-light tracking-wider group-hover/btn:tracking-widest transition-all duration-300">booking@a2duo.com</span>
-                </a>
-              </div>
 
               <div className="space-y-4">
                 <h4 className="text-[10px] uppercase tracking-[0.4em] text-gray-500">Связаться в один клик</h4>

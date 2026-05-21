@@ -47,8 +47,8 @@ export const Gallery = () => {
           </a>
         </motion.div>
 
-        <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 750: 2, 1024: 3 }}>
-          <Masonry gutter="1.5rem">
+        <ResponsiveMasonry columnsCountBreakPoints={{ 300: 2, 750: 2, 1024: 3 }}>
+          <Masonry gutter="1rem">
             {photos.map((photo, i) => (
               <motion.button
                 key={photo.src}
