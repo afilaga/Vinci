@@ -143,17 +143,26 @@ export const DemoPlayer = () => {
     setCurrentTrackIndex((prev) => (prev - 1 + DEMO_TRACKS.length) % DEMO_TRACKS.length);
   };
 
-  const handleProgressBarClick = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleProgressMove = (clientX: number) => {
     if (!audioRef.current || !progressBarRef.current || duration === 0) return;
-
     const rect = progressBarRef.current.getBoundingClientRect();
-    const clickX = e.clientX - rect.left;
+    const clickX = clientX - rect.left;
     const width = rect.width;
     const nextPercent = Math.max(0, Math.min(100, clickX / width));
     const nextTime = nextPercent * duration;
 
     audioRef.current.currentTime = nextTime;
     setCurrentTime(nextTime);
+  };
+
+  const handleProgressBarClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    handleProgressMove(e.clientX);
+  };
+
+  const handleProgressBarTouch = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (e.touches && e.touches.length > 0) {
+      handleProgressMove(e.touches[0].clientX);
+    }
   };
 
   const selectTrack = (index: number) => {
@@ -224,10 +233,8 @@ export const DemoPlayer = () => {
                   className="w-full h-full flex items-center justify-center relative rounded-full"
                 >
                   {/* Vinyl label center */}
-                  <div className="w-16 h-16 md:w-20 md:y-20 rounded-full bg-white/10 border border-white/20 flex items-center justify-center relative shadow-inner">
+                  <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white/10 border border-white/20 flex items-center justify-center relative shadow-inner">
                     <Music className="w-6 h-6 md:w-8 md:h-8 text-white/80" />
-                    {/* Center spindle hole */}
-                    <div className="absolute w-3 h-3 bg-black rounded-full border border-white/20 shadow-md" />
                   </div>
                 </motion.div>
 
@@ -265,12 +272,16 @@ export const DemoPlayer = () => {
                 <div 
                   ref={progressBarRef}
                   onClick={handleProgressBarClick}
-                  className="h-1.5 w-full bg-white/10 hover:bg-white/25 rounded-full overflow-hidden relative cursor-pointer group transition-all"
+                  onTouchStart={handleProgressBarTouch}
+                  onTouchMove={handleProgressBarTouch}
+                  className="h-4 w-full flex items-center cursor-pointer group select-none"
                 >
-                  <div 
-                    className="absolute left-0 top-0 bottom-0 bg-white group-hover:bg-white transition-all rounded-full" 
-                    style={{ width: `${progressPercent}%` }}
-                  />
+                  <div className="h-1.5 w-full bg-white/10 group-hover:bg-white/25 rounded-full overflow-hidden relative transition-all">
+                    <div 
+                      className="absolute left-0 top-0 bottom-0 bg-white group-hover:bg-white transition-all rounded-full" 
+                      style={{ width: `${progressPercent}%` }}
+                    />
+                  </div>
                 </div>
                 <div className="flex justify-between items-center text-[10px] font-mono text-white/40 select-none">
                   <span>{formatTime(currentTime)}</span>
@@ -332,7 +343,7 @@ export const DemoPlayer = () => {
                 </div>
 
                 {/* Volume Slider Panel */}
-                <div className="flex items-center gap-2.5">
+                <div className="hidden md:flex items-center gap-2.5">
                   <button
                     onClick={() => setIsMuted(!isMuted)}
                     className="p-2 text-white/50 hover:text-white transition-colors cursor-pointer"
