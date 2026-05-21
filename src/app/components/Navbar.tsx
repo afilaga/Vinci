@@ -16,6 +16,7 @@ export const Navbar = () => {
   const navLinks = [
     { name: 'О проекте', href: '#about' },
     { name: 'Репертуар', href: '#repertoire' },
+    { name: 'Плейлист', href: '#playlist' },
     { name: 'Галерея', href: '#gallery' },
     { name: 'Видео', href: '#video' },
     { name: 'Бронирование', href: '#booking' },

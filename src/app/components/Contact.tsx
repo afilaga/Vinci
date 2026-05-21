@@ -6,6 +6,7 @@ import { toast } from 'sonner';
 type BookingFormData = {
   name: string;
   email: string;
+  phone: string;
   date: string;
   message: string;
 };
@@ -40,7 +41,7 @@ export const Contact = () => {
                 <label className="block text-sm uppercase tracking-widest text-gray-500 mb-2">Имя</label>
                 <input 
                   {...register('name', { required: 'Укажите имя' })}
-                  className="w-full bg-white/5 border-b border-white/20 py-3 px-4 focus:outline-none focus:border-white/50 focus:bg-white/10 transition-all font-light"
+                  className="w-full bg-white/5 border-b border-white/20 py-3 px-4 focus:outline-none focus:border-white focus:bg-white/10 transition-all font-light"
                   placeholder="Анна Иванова"
                 />
                 {errors.name && <span className="text-red-500 text-xs mt-1 block">{errors.name.message}</span>}
@@ -54,10 +55,24 @@ export const Contact = () => {
                     required: 'Укажите email',
                     pattern: { value: /^\S+@\S+$/i, message: 'Неверный формат email' }
                   })}
-                  className="w-full bg-white/5 border-b border-white/20 py-3 px-4 focus:outline-none focus:border-white/50 focus:bg-white/10 transition-all font-light"
+                  className="w-full bg-white/5 border-b border-white/20 py-3 px-4 focus:outline-none focus:border-white focus:bg-white/10 transition-all font-light"
                   placeholder="anna@example.com"
                 />
                 {errors.email && <span className="text-red-500 text-xs mt-1 block">{errors.email.message}</span>}
+              </div>
+
+              <div>
+                <label className="block text-sm uppercase tracking-widest text-gray-500 mb-2">Телефон</label>
+                <input 
+                  type="tel"
+                  {...register('phone', { 
+                    required: 'Укажите телефон для связи',
+                    pattern: { value: /^(\+?\d{1,4}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/, message: 'Неверный формат телефона' }
+                  })}
+                  className="w-full bg-white/5 border-b border-white/20 py-3 px-4 focus:outline-none focus:border-white focus:bg-white/10 transition-all font-light"
+                  placeholder="+7 (999) 123-45-67"
+                />
+                {errors.phone && <span className="text-red-500 text-xs mt-1 block">{errors.phone.message}</span>}
               </div>
 
               <div>
@@ -65,7 +80,7 @@ export const Contact = () => {
                 <input 
                   type="date"
                   {...register('date')}
-                  className="w-full bg-white/5 border-b border-white/20 py-3 px-4 focus:outline-none focus:border-white/50 focus:bg-white/10 transition-all font-light inverted-scheme"
+                  className="w-full bg-white/5 border-b border-white/20 py-3 px-4 focus:outline-none focus:border-white focus:bg-white/10 transition-all font-light [color-scheme:dark]"
                 />
               </div>
 
@@ -74,7 +89,7 @@ export const Contact = () => {
                 <textarea 
                   {...register('message', { required: 'Напишите сообщение' })}
                   rows={4}
-                  className="w-full bg-white/5 border-b border-white/20 py-3 px-4 focus:outline-none focus:border-white/50 focus:bg-white/10 transition-all font-light resize-none"
+                  className="w-full bg-white/5 border-b border-white/20 py-3 px-4 focus:outline-none focus:border-white focus:bg-white/10 transition-all font-light resize-none"
                   placeholder="Расскажите о вашем мероприятии..."
                 />
                 {errors.message && <span className="text-red-500 text-xs mt-1 block">{errors.message.message}</span>}
@@ -83,7 +98,7 @@ export const Contact = () => {
               <button 
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-white text-black uppercase tracking-[0.3em] font-medium py-5 hover:bg-gray-200 transition-all disabled:bg-gray-700 shadow-xl"
+                className="w-full bg-white text-black uppercase tracking-[0.3em] font-medium py-5 hover:bg-gray-200 transition-all disabled:bg-gray-700 shadow-xl cursor-pointer"
               >
                 {isSubmitting ? 'Отправка...' : 'Отправить запрос'}
               </button>

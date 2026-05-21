@@ -1,36 +1,30 @@
-import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'motion/react';
+import React from 'react';
+import { motion } from 'motion/react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 
 export const About = () => {
-  const ref = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"]
-  });
-
-  const imageY = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
-
   return (
-    <section id="about" ref={ref} className="py-24 md:py-32 bg-black text-white relative overflow-hidden">
+    <section id="about" className="py-24 md:py-32 bg-black text-white relative overflow-hidden">
       <div className="container mx-auto px-6 md:px-12">
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center mb-32">
           <motion.div 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 1.2 }}
-            className="order-2 lg:order-1 relative aspect-[3/4] w-full max-w-md mx-auto overflow-hidden"
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            className="order-2 lg:order-1 relative aspect-[3/4] w-full max-w-md mx-auto overflow-hidden group cursor-pointer"
           >
-            <motion.div style={{ y: imageY }} className="absolute inset-[-15%] w-[130%] h-[130%]">
+            <div className="absolute inset-0 overflow-hidden">
               <ImageWithFallback
                 src="/images/duo.jpg"
                 alt="A² Duo"
-                className="w-full h-full object-cover grayscale"
+                loading="lazy"
+                decoding="async"
+                className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
               />
-            </motion.div>
-            <div className="absolute inset-0 border border-gray-800 translate-x-4 translate-y-4 pointer-events-none" />
+            </div>
+            <div className="absolute inset-0 border border-gray-800 translate-x-4 translate-y-4 group-hover:translate-x-2 group-hover:translate-y-2 transition-transform duration-700 ease-out pointer-events-none" />
           </motion.div>
 
           <motion.div 
@@ -73,15 +67,16 @@ export const About = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
+            className="group cursor-pointer"
           >
-            <h3 className="text-2xl font-medium mb-2">Полина Винчи</h3>
+            <h3 className="text-2xl font-medium mb-2 group-hover:text-white transition-colors">Полина Винчи</h3>
             <p className="text-sm uppercase tracking-widest text-gray-500 mb-6">Вокал</p>
             <div className="space-y-4 text-gray-400 font-light leading-relaxed">
               <div className="mb-6 relative aspect-square w-48 overflow-hidden rounded-full border border-gray-800">
                 <ImageWithFallback
                   src="/images/polina.jpg"
                   alt="Polina Vinci"
-                  className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
+                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
                 />
               </div>
               <p>
@@ -98,15 +93,16 @@ export const About = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
+            className="group cursor-pointer"
           >
-            <h3 className="text-2xl font-medium mb-2">Михаил Акимов</h3>
+            <h3 className="text-2xl font-medium mb-2 group-hover:text-white transition-colors">Михаил Акимов</h3>
             <p className="text-sm uppercase tracking-widest text-gray-500 mb-6">Саксофон</p>
             <div className="space-y-4 text-gray-400 font-light leading-relaxed">
               <div className="mb-6 relative aspect-square w-48 overflow-hidden rounded-full border border-gray-800">
                 <ImageWithFallback
                   src="/images/mikhail.jpg"
                   alt="Mikhail Akimov"
-                  className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
+                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
                 />
               </div>
               <p>

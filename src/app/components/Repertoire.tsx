@@ -59,8 +59,8 @@ export const Repertoire = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-gray-600 font-light text-lg leading-relaxed space-y-4"
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-white/60 font-light text-lg leading-relaxed space-y-4"
           >
             <p>
               Мы формируем программу так, чтобы музыка оставалась актуальной и уместной в самых разных контекстах — от формата «welcome» до полноценного концерта.
@@ -76,15 +76,15 @@ export const Repertoire = () => {
           {repertoireItems.map((item, index) => (
             <motion.div 
               key={index}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-white/5 backdrop-blur-md border border-white/10 p-8 hover:bg-white/10 hover:border-white/20 transition-all duration-500 group"
+              transition={{ duration: 0.7, delay: index * 0.1, ease: [0.215, 0.61, 0.355, 1] }}
+              className="bg-white/5 backdrop-blur-md border border-white/10 p-8 hover:bg-white/10 hover:border-white/20 hover:-translate-y-1 transition-all duration-500 group relative overflow-hidden"
             >
               <div className="w-12 h-[1px] bg-white/30 mb-6 group-hover:w-full transition-all duration-700" />
-              <h3 className="text-xl font-medium mb-4 tracking-wide">{item.title}</h3>
-              <p className="text-gray-400 font-light leading-relaxed text-sm">{item.desc}</p>
+              <h3 className="text-xl font-medium mb-4 tracking-wide text-white group-hover:text-white transition-colors">{item.title}</h3>
+              <p className="text-white/50 font-light leading-relaxed text-sm group-hover:text-white/80 transition-colors">{item.desc}</p>
             </motion.div>
           ))}
         </div>
@@ -98,10 +98,10 @@ export const Repertoire = () => {
             transition={{ duration: 0.6 }}
           >
             <h2 className="text-3xl md:text-4xl font-light uppercase tracking-widest mb-8">Формат и подход</h2>
-            <p className="text-gray-600 font-light text-lg leading-relaxed mb-6">
+            <p className="text-white/60 font-light text-lg leading-relaxed mb-6">
               Мы внимательно прислушиваемся к вашим пожеланиям — будь то программа, формат выступления, настроение вечера или дресс-код. Наша цель — органично вписаться в атмосферу Вашего события.
             </p>
-            <p className="text-gray-600 font-light text-lg leading-relaxed">
+            <p className="text-white/60 font-light text-lg leading-relaxed">
               Мы заранее обсуждаем репертуар, длительность сетов, а также визуальную часть — от стиля одежды до общего образа дуэта.
             </p>
           </motion.div>
