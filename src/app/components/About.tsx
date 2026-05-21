@@ -17,7 +17,7 @@ export const About = () => {
           >
             <div className="absolute inset-0 overflow-hidden">
               <ImageWithFallback
-                src="images/a2_main.webp"
+                src="images/About.webp"
                 alt="A² Duo"
                 loading="lazy"
                 decoding="async"
