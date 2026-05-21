@@ -24,7 +24,6 @@ export const About = () => {
                 className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
               />
             </div>
-            <div className="absolute inset-0 border border-foreground/10 translate-x-4 translate-y-4 group-hover:translate-x-2 group-hover:translate-y-2 transition-transform duration-700 ease-out pointer-events-none" />
           </motion.div>
  
           <motion.div 
