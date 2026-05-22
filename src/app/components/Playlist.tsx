@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ChevronDown } from 'lucide-react';
+import { useLanguage } from './LanguageContext';
 
 interface Track {
   id: string;
@@ -112,6 +113,7 @@ const CHRISTMAS: Track[] = [
 ];
 
 export const Playlist = () => {
+  const { language, t } = useLanguage();
   const [openCategories, setOpenCategories] = useState<Record<string, boolean>>({
     mashups: false,
     jazz: false,
@@ -128,20 +130,24 @@ export const Playlist = () => {
   };
 
   const getTrackWord = (count: number) => {
-    const lastDigit = count % 10;
-    const lastTwoDigits = count % 100;
-    if (lastTwoDigits >= 11 && lastTwoDigits <= 14) return 'треков';
-    if (lastDigit === 1) return 'трек';
-    if (lastDigit >= 2 && lastDigit <= 4) return 'трека';
-    return 'треков';
+    if (language === 'ru') {
+      const lastDigit = count % 10;
+      const lastTwoDigits = count % 100;
+      if (lastTwoDigits >= 11 && lastTwoDigits <= 14) return t('playlist.counter.5');
+      if (lastDigit === 1) return t('playlist.counter.1');
+      if (lastDigit >= 2 && lastDigit <= 4) return t('playlist.counter.2_4');
+      return t('playlist.counter.5');
+    } else {
+      return count === 1 ? t('playlist.counter.1') : t('playlist.counter.2_4');
+    }
   };
 
   const CATEGORIES = [
-    { key: 'mashups', title: 'Mash Ups', tracks: MASHUPS },
-    { key: 'jazz', title: 'Jazz / Welcome', tracks: JAZZ },
-    { key: 'soviet', title: 'Советское', tracks: SOVIET },
-    { key: 'christmas', title: 'Christmas', tracks: CHRISTMAS },
-    { key: 'other', title: 'Other', tracks: OTHER },
+    { key: 'mashups', title: t('playlist.cats.mashups'), tracks: MASHUPS },
+    { key: 'jazz', title: t('playlist.cats.jazz'), tracks: JAZZ },
+    { key: 'soviet', title: t('playlist.cats.soviet'), tracks: SOVIET },
+    { key: 'christmas', title: t('playlist.cats.christmas'), tracks: CHRISTMAS },
+    { key: 'other', title: t('playlist.cats.other'), tracks: OTHER },
   ];
 
   return (
@@ -161,10 +167,10 @@ export const Playlist = () => {
             transition={{ duration: 0.6 }}
           >
             <h2 className="text-4xl md:text-5xl font-light uppercase tracking-widest mb-6">
-              Плейлист A²
+              {t('playlist.title')}
             </h2>
             <p className="text-foreground/60 font-light text-base md:text-lg leading-relaxed max-w-2xl transition-colors duration-500">
-              Наш репертуар, структурированный по музыкальным направлениям. Нажмите на интересующую категорию, чтобы открыть полный список композиций.
+              {t('playlist.desc')}
             </p>
           </motion.div>
         </div>
@@ -236,3 +242,4 @@ export const Playlist = () => {
     </section>
   );
 };
+

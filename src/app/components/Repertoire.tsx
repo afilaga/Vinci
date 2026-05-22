@@ -1,41 +1,13 @@
 import React from 'react';
 import { motion } from 'motion/react';
-
-const repertoireItems = [
-  {
-    title: "Современные хиты в джазовой, соул, хаус и лаунж-обработке",
-    desc: "Мы адаптируем известные композиции, сохраняя их узнаваемость, но делая звучание более деликатным, стильным и живым."
-  },
-  {
-    title: "Tropical / Deep House версии",
-    desc: "Треки с лёгкой электронной основой и живым саксофоном, подходящие для динамичных форматов — вечерних мероприятий, летних площадок, коктейльных сетов."
-  },
-  {
-    title: "Авторские миксы и сеты",
-    desc: "Мы объединяем треки между собой, выстраивая цельное музыкальное полотно, создавая для Вас оригинальные миксы любимых песен в авторской обработке, порой, очень колоритные и неожиданные!"
-  },
-  {
-    title: "Джазовые и соул-композиции",
-    desc: "Для камерных событий или ситуаций, где важна атмосфера уюта и живого взаимодействия между голосом и инструментом."
-  },
-  {
-    title: "Программа «под ключ»",
-    desc: "Мы с удовольствием подберем программу специально для Вашего мероприятия, исходя из Ваших пожеланий."
-  }
-];
-
-const formats = [
-  "Деловой вечер",
-  "Частное торжество",
-  "Корпоративные мероприятия",
-  "Тематические вечеринки",
-  "Камерный концерт",
-  "Выступление в зоне «welcome»",
-  "Коктейльный сет",
-  "И любой другой формат..."
-];
+import { useLanguage } from './LanguageContext';
 
 export const Repertoire = () => {
+  const { t } = useLanguage();
+  
+  const repertoireItems = (t('repertoire.items') || []) as Array<{ title: string; desc: string }>;
+  const formats = (t('repertoire.formats') || []) as string[];
+
   return (
     <section id="repertoire" className="py-24 md:py-32 bg-background text-foreground relative overflow-hidden transition-colors duration-500">
       {/* Background ambient glows */}
@@ -52,7 +24,7 @@ export const Repertoire = () => {
             transition={{ duration: 0.6 }}
             className="text-4xl md:text-5xl font-light uppercase tracking-widest mb-8"
           >
-            Репертуар и звучание
+            {t('repertoire.title')}
           </motion.h2>
           
           <motion.div
@@ -63,10 +35,10 @@ export const Repertoire = () => {
             className="text-foreground/60 font-light text-lg leading-relaxed space-y-4 transition-colors duration-500"
           >
             <p>
-              Мы формируем программу так, чтобы музыка оставалась актуальной и уместной в самых разных контекстах — от формата «welcome» до полноценного концерта.
+              {t('repertoire.p1')}
             </p>
             <p>
-              Дуэт А² всегда прислушивается к Вашим интересам и представлению о событии. Благодаря этому мы можем собрать уникальный репертуар специально под ваш вечер, чтобы выступление звучало стильно, органично и помогало создать по-настоящему неповторимую атмосферу.
+              {t('repertoire.p2')}
             </p>
           </motion.div>
         </div>
@@ -99,12 +71,12 @@ export const Repertoire = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl md:text-4xl font-light uppercase tracking-widest mb-8">Формат и подход</h2>
+            <h2 className="text-3xl md:text-4xl font-light uppercase tracking-widest mb-8">{t('repertoire.approachTitle')}</h2>
             <p className="text-foreground/60 font-light text-lg leading-relaxed mb-6 transition-colors duration-500">
-              Мы внимательно прислушиваемся к вашим пожеланиям — будь то программа, формат выступления, настроение вечера или дресс-код. Наша цель — органично вписаться в атмосферу Вашего события.
+              {t('repertoire.approachP1')}
             </p>
             <p className="text-foreground/60 font-light text-lg leading-relaxed transition-colors duration-500">
-              Мы заранее обсуждаем репертуар, длительность сетов, а также визуальную часть — от стиля одежды до общего образа дуэта.
+              {t('repertoire.approachP2')}
             </p>
           </motion.div>
 
@@ -130,3 +102,4 @@ export const Repertoire = () => {
     </section>
   );
 };
+

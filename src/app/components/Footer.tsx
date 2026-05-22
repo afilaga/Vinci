@@ -1,6 +1,9 @@
 import React from 'react';
+import { useLanguage } from './LanguageContext';
 
 export const Footer = () => {
+  const { t } = useLanguage();
+
   return (
     <footer className="bg-background text-foreground/50 py-12 border-t border-foreground/10 transition-colors duration-500">
       <div className="container mx-auto px-6 md:px-12 flex flex-col md:flex-row justify-between items-center gap-6">
@@ -13,12 +16,12 @@ export const Footer = () => {
         </div>
         
         <p className="text-sm font-light uppercase tracking-widest text-center">
-          © {new Date().getFullYear()} A² (Ardor Squared). Все права защищены.
+          {t('footer.rights', { year: new Date().getFullYear() })}
         </p>
         
         <div className="flex gap-6">
-          <a href="#" className="text-sm uppercase tracking-widest hover:text-foreground transition-colors">Конфиденциальность</a>
-          <a href="#" className="text-sm uppercase tracking-widest hover:text-foreground transition-colors">Условия</a>
+          <a href="#" className="text-sm uppercase tracking-widest hover:text-foreground transition-colors">{t('footer.privacy')}</a>
+          <a href="#" className="text-sm uppercase tracking-widest hover:text-foreground transition-colors">{t('footer.terms')}</a>
         </div>
       </div>
     </footer>

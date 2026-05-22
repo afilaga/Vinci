@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Play, Pause, SkipForward, SkipBack, Volume2, VolumeX, Music, Loader2 } from 'lucide-react';
+import { useLanguage } from './LanguageContext';
 
 interface DemoTrack {
   id: string;
@@ -49,6 +50,7 @@ export const DemoPlayer = () => {
   const [volume, setVolume] = useState(0.8);
   const [isMuted, setIsMuted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const { t } = useLanguage();
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const progressBarRef = useRef<HTMLDivElement | null>(null);
@@ -200,10 +202,10 @@ export const DemoPlayer = () => {
             transition={{ duration: 0.6 }}
           >
             <h2 className="text-4xl md:text-5xl font-light uppercase tracking-widest mb-6">
-              Демо-записи
+              {t('demo.title')}
             </h2>
             <p className="text-foreground/60 font-light text-lg leading-relaxed max-w-2xl transition-colors duration-500">
-              Послушайте наше живое звучание. В плеере собраны реальные записи миксов, вокальных партий и саксофонных импровизаций дуэта A².
+              {t('demo.desc')}
             </p>
           </motion.div>
         </div>
@@ -319,7 +321,7 @@ export const DemoPlayer = () => {
                   <button
                     onClick={handlePrev}
                     className="p-2 text-foreground/60 hover:text-foreground hover:scale-105 active:scale-95 transition-all cursor-pointer"
-                    aria-label="Предыдущий трек"
+                    aria-label={t('demo.prev')}
                   >
                     <SkipBack className="w-5 h-5 fill-foreground/10" />
                   </button>
@@ -328,7 +330,7 @@ export const DemoPlayer = () => {
                     onClick={handlePlayPause}
                     disabled={isLoading}
                     className="p-4 bg-foreground hover:bg-foreground/90 text-background rounded-full hover:scale-105 active:scale-95 transition-all cursor-pointer shadow-lg shadow-foreground/5 focus:outline-none"
-                    aria-label={isPlaying ? "Пауза" : "Воспроизвести"}
+                    aria-label={isPlaying ? t('demo.pause') : t('demo.play')}
                   >
                     {isPlaying ? <Pause className="w-6 h-6 fill-background text-background" /> : <Play className="w-6 h-6 fill-background text-background ml-0.5" />}
                   </button>
@@ -336,7 +338,7 @@ export const DemoPlayer = () => {
                   <button
                     onClick={handleNext}
                     className="p-2 text-foreground/60 hover:text-foreground hover:scale-105 active:scale-95 transition-all cursor-pointer"
-                    aria-label="Следующий трек"
+                    aria-label={t('demo.next')}
                   >
                     <SkipForward className="w-5 h-5 fill-foreground/10" />
                   </button>
@@ -347,7 +349,7 @@ export const DemoPlayer = () => {
                   <button
                     onClick={() => setIsMuted(!isMuted)}
                     className="p-2 text-foreground/50 hover:text-foreground transition-colors cursor-pointer"
-                    aria-label={isMuted ? "Включить звук" : "Выключить звук"}
+                    aria-label={isMuted ? t('demo.unmute') : t('demo.mute')}
                   >
                     {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
                   </button>
@@ -358,11 +360,11 @@ export const DemoPlayer = () => {
                     step="0.05"
                     value={volume}
                     onChange={(e) => {
-                      setVolume(parseFloat(e.target.value));
-                      setIsMuted(false);
+                       setVolume(parseFloat(e.target.value));
+                       setIsMuted(false);
                     }}
                     className="w-16 md:w-20 accent-foreground h-1 bg-foreground/10 rounded-lg cursor-pointer"
-                    aria-label="Громкость"
+                    aria-label={t('demo.volume')}
                   />
                 </div>
 
@@ -375,7 +377,7 @@ export const DemoPlayer = () => {
           {/* Right Side: Repertoire Playlist Selection (lg: 5 cols) */}
           <div className="lg:col-span-5 bg-foreground/[0.01] border border-foreground/10 rounded-3xl p-6 md:p-8 flex flex-col gap-4 shadow-xl transition-all duration-500">
             <span className="text-[10px] uppercase tracking-[0.25em] text-foreground/40 font-semibold mb-2 transition-colors duration-500">
-              Список демо-записей
+              {t('demo.listTitle')}
             </span>
             
             <div className="space-y-3 flex-1 overflow-y-auto pr-1">
@@ -433,7 +435,7 @@ export const DemoPlayer = () => {
             <div className="pt-4 border-t border-foreground/5 flex items-center gap-2 text-foreground/30 mt-auto transition-colors duration-500">
               <Volume2 className="w-3.5 h-3.5" />
               <span className="text-[9px] uppercase tracking-widest">
-                Студийное качество • 44.1 kHz WAV
+                {t('demo.quality')}
               </span>
             </div>
 
@@ -445,3 +447,4 @@ export const DemoPlayer = () => {
     </section>
   );
 };
+

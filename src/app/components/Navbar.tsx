@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Phone, MessageSquare, Send, Sun, Moon } from 'lucide-react';
+import { useLanguage } from './LanguageContext';
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const { language, setLanguage, t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,14 +33,14 @@ export const Navbar = () => {
   };
 
   const navLinks = [
-    { name: 'О проекте', href: '#about' },
-    { name: 'Репертуар', href: '#repertoire' },
-    { name: 'Демо', href: '#demo' },
-    { name: 'Плейлист', href: '#playlist' },
-    { name: 'Галерея', href: '#gallery' },
-    { name: 'Видео', href: '#video' },
-    { name: 'Райдеры', href: '#riders' },
-    { name: 'Бронирование', href: '#booking' },
+    { name: t('navbar.about'), href: '#about' },
+    { name: t('navbar.repertoire'), href: '#repertoire' },
+    { name: t('navbar.demo'), href: '#demo' },
+    { name: t('navbar.playlist'), href: '#playlist' },
+    { name: t('navbar.gallery'), href: '#gallery' },
+    { name: t('navbar.video'), href: '#video' },
+    { name: t('navbar.riders'), href: '#riders' },
+    { name: t('navbar.booking'), href: '#booking' },
   ];
 
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -85,7 +87,7 @@ export const Navbar = () => {
           <div className="flex gap-8">
             {navLinks.map((link) => (
               <a
-                key={link.name}
+                key={link.href}
                 href={link.href}
                 onClick={(e) => scrollToSection(e, link.href)}
                 className="text-foreground/75 hover:text-foreground text-sm uppercase tracking-widest transition-colors duration-200"
@@ -97,13 +99,24 @@ export const Navbar = () => {
 
           <div className="h-4 w-[1px] bg-foreground/15" />
 
-          {/* Direct Contacts & Theme Switcher */}
+          {/* Direct Contacts, Language Switcher & Theme Switcher */}
           <div className="flex items-center gap-4">
+            <button
+              onClick={() => setLanguage(language === 'ru' ? 'en' : 'ru')}
+              className="text-foreground/75 hover:text-foreground font-mono text-xs font-semibold px-2 py-0.5 border border-foreground/15 hover:border-foreground/30 rounded transition-all duration-300 cursor-pointer hover:scale-105 active:scale-95"
+              title={language === 'ru' ? 'Switch to English' : 'Переключить на русский'}
+              aria-label="Switch language"
+            >
+              {language.toUpperCase()}
+            </button>
+
+            <div className="h-4 w-[1px] bg-foreground/15" />
+
             <button
               onClick={toggleTheme}
               className="text-foreground/60 hover:text-foreground transition-all duration-300 p-1 cursor-pointer hover:scale-110 active:scale-95"
-              title={theme === 'dark' ? 'Дневной режим' : 'Ночной режим'}
-              aria-label="Смена темы"
+              title={theme === 'dark' ? t('navbar.themeDark') : t('navbar.themeLight')}
+              aria-label={t('navbar.themeLabel')}
             >
               {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
             </button>
@@ -113,7 +126,7 @@ export const Navbar = () => {
             <a 
               href="tel:+79194676701"
               className="text-foreground/60 hover:text-foreground transition-colors"
-              title="Позвонить"
+              title={t('navbar.callTitle')}
             >
               <Phone size={18} />
             </a>
@@ -142,10 +155,21 @@ export const Navbar = () => {
         <div className="flex md:hidden items-center gap-4">
           <div className="flex items-center gap-3">
             <button
+              onClick={() => setLanguage(language === 'ru' ? 'en' : 'ru')}
+              className="text-foreground/75 hover:text-foreground font-mono text-xs font-semibold px-2 py-0.5 border border-foreground/15 hover:border-foreground/30 rounded transition-all duration-300 cursor-pointer active:scale-95"
+              title={language === 'ru' ? 'Switch to English' : 'Переключить на русский'}
+              aria-label="Switch language"
+            >
+              {language.toUpperCase()}
+            </button>
+
+            <div className="h-5 w-[1px] bg-foreground/15 mx-1" />
+
+            <button
               onClick={toggleTheme}
               className="text-foreground/60 hover:text-foreground transition-colors p-1 cursor-pointer hover:scale-105"
-              title={theme === 'dark' ? 'Дневной режим' : 'Ночной режим'}
-              aria-label="Смена темы"
+              title={theme === 'dark' ? t('navbar.themeDark') : t('navbar.themeLight')}
+              aria-label={t('navbar.themeLabel')}
             >
               {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
             </button>
@@ -155,7 +179,7 @@ export const Navbar = () => {
             <a 
               href="tel:+79194676701"
               className="text-foreground/60 hover:text-foreground transition-colors p-1"
-              title="Позвонить"
+              title={t('navbar.callTitle')}
             >
               <Phone size={20} />
             </a>
@@ -194,7 +218,7 @@ export const Navbar = () => {
         <div className="md:hidden absolute top-full left-0 w-full bg-background/95 backdrop-blur-md flex flex-col py-6 px-6 gap-6 shadow-2xl border-t border-foreground/10 max-h-[80dvh] overflow-y-auto transition-colors duration-500">
           {navLinks.map((link) => (
             <a
-              key={link.name}
+              key={link.href}
               href={link.href}
               onClick={(e) => scrollToSection(e, link.href)}
               className="text-foreground text-lg uppercase tracking-widest border-b border-foreground/10 pb-4"
@@ -205,14 +229,14 @@ export const Navbar = () => {
 
           {/* Contacts Grid inside drawer */}
           <div className="pt-4 pb-2 border-t border-foreground/10">
-            <h4 className="text-[10px] uppercase tracking-[0.4em] text-foreground/50 mb-4">Связаться в один клик</h4>
+            <h4 className="text-[10px] uppercase tracking-[0.4em] text-foreground/50 mb-4">{t('navbar.quickContact')}</h4>
             <div className="grid grid-cols-3 gap-3">
               <a 
                 href="tel:+79194676701"
                 className="flex flex-col items-center justify-center gap-2 bg-foreground/5 border border-foreground/10 py-3 rounded-xl transition-all"
               >
                 <Phone size={18} className="text-foreground/60" />
-                <span className="text-[10px] uppercase tracking-wider text-foreground/80 font-light">Звонок</span>
+                <span className="text-[10px] uppercase tracking-wider text-foreground/80 font-light">{t('navbar.call')}</span>
               </a>
               <a 
                 href="https://wa.me/79194676701"
@@ -239,3 +263,4 @@ export const Navbar = () => {
     </nav>
   );
 };
+

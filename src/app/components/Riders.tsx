@@ -1,15 +1,22 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
-  Download, FileText, Mic, Music, Coffee, Plane, MapPin, Users, 
-  CheckCircle2, AlertTriangle, Clock, ShieldCheck, Volume2, Briefcase, 
-  Tv, Eye, HelpCircle, Compass, Layers, Phone, MessageSquare, Send
+  Download, FileText, Coffee, Plane, MapPin, Users, 
+  AlertTriangle, Clock, Volume2, Briefcase, 
+  Tv, Compass, Layers, Phone, MessageSquare, Send
 } from 'lucide-react';
+import { useLanguage } from './LanguageContext';
 
 type RiderTab = 'technical' | 'hospitality';
 
 export const Riders = () => {
   const [activeTab, setActiveTab] = useState<RiderTab>('technical');
+  const { t } = useLanguage();
+
+  const renderBoldText = (text: string) => {
+    const parts = text.split('**');
+    return parts.map((part, i) => i % 2 === 1 ? <strong key={i} className="font-semibold text-foreground">{part}</strong> : part);
+  };
 
   return (
     <section id="riders" className="py-24 md:py-32 bg-background text-foreground relative overflow-hidden transition-colors duration-500">
@@ -29,13 +36,13 @@ export const Riders = () => {
             className="space-y-4"
           >
             <span className="text-xs uppercase tracking-[0.3em] text-foreground/40 font-semibold transition-colors duration-500">
-              Информация для организаторов
+              {t('riders.tag')}
             </span>
             <h2 className="text-4xl md:text-5xl font-light uppercase tracking-widest">
-              Райдеры A²
+              {t('riders.title')}
             </h2>
             <p className="text-foreground/60 font-light text-base md:text-lg leading-relaxed transition-colors duration-500">
-              Мы стремимся создать безупречное шоу на любой площадке. Ниже представлены наши технические и бытовые требования. Мы всегда открыты к обсуждению и готовы адаптировать детали под возможности вашего мероприятия.
+              {t('riders.desc')}
             </p>
           </motion.div>
         </div>
@@ -60,7 +67,7 @@ export const Riders = () => {
               )}
               <span className="relative z-10 flex items-center gap-2">
                 <Volume2 className="w-4 h-4" />
-                Технический
+                {t('riders.tabTech')}
               </span>
             </button>
             
@@ -79,7 +86,7 @@ export const Riders = () => {
               )}
               <span className="relative z-10 flex items-center gap-2">
                 <Coffee className="w-4 h-4" />
-                Бытовой
+                {t('riders.tabHosp')}
               </span>
             </button>
           </div>
@@ -92,7 +99,7 @@ export const Riders = () => {
               className="px-5 py-3 bg-foreground/[0.03] hover:bg-foreground/[0.08] border border-foreground/10 rounded-2xl text-xs uppercase tracking-wider font-semibold flex items-center gap-2.5 transition-all hover:scale-105 active:scale-95 group cursor-pointer shadow-md shadow-foreground/5"
             >
               <FileText className="w-4 h-4 text-foreground/60 group-hover:text-foreground transition-colors" />
-              Скачать техрайдер
+              {t('riders.dlTech')}
               <Download className="w-3.5 h-3.5 text-foreground/40 group-hover:text-foreground transition-colors" />
             </a>
             
@@ -102,7 +109,7 @@ export const Riders = () => {
               className="px-5 py-3 bg-foreground/[0.03] hover:bg-foreground/[0.08] border border-foreground/10 rounded-2xl text-xs uppercase tracking-wider font-semibold flex items-center gap-2.5 transition-all hover:scale-105 active:scale-95 group cursor-pointer shadow-md shadow-foreground/5"
             >
               <FileText className="w-4 h-4 text-foreground/60 group-hover:text-foreground transition-colors" />
-              Скачать бытовой райдер
+              {t('riders.dlHosp')}
               <Download className="w-3.5 h-3.5 text-foreground/40 group-hover:text-foreground transition-colors" />
             </a>
           </div>
@@ -128,13 +135,12 @@ export const Riders = () => {
                     <div className="space-y-4">
                       <div className="flex items-center gap-3 text-foreground/80 transition-colors duration-500">
                         <Clock className="w-5 h-5 text-foreground/60 transition-colors" />
-                        <h3 className="font-semibold text-lg">Саундчек (Soundcheck)</h3>
+                        <h3 className="font-semibold text-lg">{t('riders.tech.soundcheck')}</h3>
                       </div>
                       <ul className="space-y-2.5 text-sm text-foreground/60 font-light list-disc list-inside transition-colors duration-500">
-                        <li>Длительность настройки — не менее 1 часа после полной коммутации и готовности персонала.</li>
-                        <li>Обязательно присутствие компетентного звукорежиссера площадки.</li>
-                        <li>Все оборудование должно быть корректно установлено и заземлено.</li>
-                        <li>Необходимо обеспечить защиту от перегрузок сети (лимитеры, бесперебойники).</li>
+                        {(t('riders.tech.soundcheckLines') as string[]).map((line, idx) => (
+                          <li key={idx}>{line}</li>
+                        ))}
                       </ul>
                     </div>
                   </div>
@@ -143,10 +149,10 @@ export const Riders = () => {
                     <div className="space-y-4">
                       <div className="flex items-center gap-3 text-foreground/80 transition-colors duration-500">
                         <Compass className="w-5 h-5 text-foreground/60 transition-colors" />
-                        <h3 className="font-semibold text-lg">Открытые сцены</h3>
+                        <h3 className="font-semibold text-lg">{t('riders.tech.openAir')}</h3>
                       </div>
                       <p className="text-sm text-foreground/60 leading-relaxed font-light transition-colors duration-500">
-                        При выступлениях на открытом воздухе обязательно наличие надежной крыши над сценой. В случае температуры воздуха ниже +15°C сцена должна быть оборудована тепловыми пушками (обогревателями).
+                        {t('riders.tech.openAirText')}
                       </p>
                     </div>
                   </div>
@@ -159,23 +165,24 @@ export const Riders = () => {
                   <div className="bg-foreground/[0.01] border border-foreground/5 rounded-3xl p-6 md:p-8 space-y-6 shadow-xl transition-all duration-500">
                     <div className="flex items-center gap-3 text-foreground transition-colors">
                       <Volume2 className="w-5 h-5 text-foreground/70 transition-colors" />
-                      <h3 className="font-semibold text-lg">PA Акустическая система</h3>
+                      <h3 className="font-semibold text-lg">{t('riders.tech.paTitle')}</h3>
                     </div>
                     <div className="space-y-4">
                       <div className="text-sm text-foreground/60 font-light space-y-1 transition-colors duration-500">
-                        <p>• Акустика должна быть минимум трехполосной с ровным звуковым полем.</p>
-                        <p>• Мощность: не менее 10 кВт на 1000 мест (минимум 3 кВт для малых залов).</p>
+                        {(t('riders.tech.paLines') as string[]).map((line, idx) => (
+                          <p key={idx}>{line}</p>
+                        ))}
                       </div>
                       
                       <div className="grid grid-cols-2 gap-4 pt-2">
                         <div className="space-y-2">
-                          <span className="text-[10px] uppercase tracking-wider text-green-400 font-semibold block">✓ Предпочтительно</span>
+                          <span className="text-[10px] uppercase tracking-wider text-green-400 font-semibold block">{t('riders.tech.preferred')}</span>
                           <p className="text-xs text-foreground/50 leading-relaxed font-mono transition-colors duration-500">
                             L'Acoustics, D&B Audiotechnik, B&A, Meyer Sound, EAW, Seeburg, NEXO, Martin Audio
                           </p>
                         </div>
                         <div className="space-y-2">
-                          <span className="text-[10px] uppercase tracking-wider text-red-400 font-semibold block">✕ Исключено (BAN)</span>
+                          <span className="text-[10px] uppercase tracking-wider text-red-400 font-semibold block">{t('riders.tech.prohibited')}</span>
                           <p className="text-xs text-foreground/50 leading-relaxed font-mono transition-colors duration-500">
                             Alto, Phonic, Behringer, JBL EON, любые самодельные колонки
                           </p>
@@ -188,16 +195,17 @@ export const Riders = () => {
                   <div className="bg-foreground/[0.01] border border-foreground/5 rounded-3xl p-6 md:p-8 space-y-6 shadow-xl transition-all duration-500">
                     <div className="flex items-center gap-3 text-foreground transition-colors">
                       <Tv className="w-5 h-5 text-foreground/70 transition-colors" />
-                      <h3 className="font-semibold text-lg">FOH Консоль (Микшер)</h3>
+                      <h3 className="font-semibold text-lg">{t('riders.tech.fohTitle')}</h3>
                     </div>
                     <div className="space-y-4">
                       <div className="text-sm text-foreground/60 font-light space-y-1 transition-colors duration-500">
-                        <p>• Звукорежиссер площадки должен отлично знать внутренний патчинг пульта.</p>
-                        <p>• Требуется отдельное свободное место для подключения плейбек-ноутбука (PB).</p>
+                        {(t('riders.tech.fohLines') as string[]).map((line, idx) => (
+                          <p key={idx}>{line}</p>
+                        ))}
                       </div>
                       
                       <div className="space-y-2 pt-2">
-                        <span className="text-[10px] uppercase tracking-wider text-foreground/40 font-semibold block transition-colors duration-500">Рекомендуемые пульты:</span>
+                        <span className="text-[10px] uppercase tracking-wider text-foreground/40 font-semibold block transition-colors duration-500">{t('riders.tech.recommendedConsoles')}</span>
                         <div className="flex flex-wrap gap-2">
                           {['Yamaha CL/QL', 'Behringer X32', 'Midas M32', 'DiGiCo S/SD', 'Roland (кроме 480)', 'Allen & Heath SQ/D-Live'].map((console) => (
                             <span key={console} className="text-xs bg-foreground/5 border border-foreground/10 px-2.5 py-1 rounded-lg text-foreground/70 font-mono transition-all">
@@ -216,10 +224,10 @@ export const Riders = () => {
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <div className="flex items-center gap-3 text-foreground transition-colors">
                       <Layers className="w-5 h-5 text-foreground/70 transition-colors" />
-                      <h3 className="font-semibold text-lg">Спецификация каналов (Input List)</h3>
+                      <h3 className="font-semibold text-lg">{t('riders.tech.inputListTitle')}</h3>
                     </div>
                     <span className="text-[10px] uppercase font-mono tracking-widest text-foreground/40 transition-colors duration-500">
-                      Всего каналов: 6 • Стерео плейбек
+                      {t('riders.tech.totalChannels')}
                     </span>
                   </div>
 
@@ -228,49 +236,35 @@ export const Riders = () => {
                     <table className="w-full text-left border-collapse text-sm">
                       <thead>
                         <tr className="border-b border-foreground/10 text-foreground/40 font-medium transition-colors duration-500">
-                          <th className="py-3 px-4 font-mono w-16">CH</th>
-                          <th className="py-3 px-4">НАЗВАНИЕ КАНАЛА (SOURCE)</th>
-                          <th className="py-3 px-4">ТИП КЛЮЧА / КОММУТАЦИЯ</th>
-                          <th className="py-3 px-4">ИНФОРМАЦИЯ / НАСТРОЙКА</th>
+                          <th className="py-3 px-4 font-mono w-16">{t('riders.tech.thCh')}</th>
+                          <th className="py-3 px-4">{t('riders.tech.thSource')}</th>
+                          <th className="py-3 px-4">{t('riders.tech.thType')}</th>
+                          <th className="py-3 px-4">{t('riders.tech.thInfo')}</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-foreground/5 text-foreground/70 font-light transition-colors duration-500">
-                        <tr className="hover:bg-foreground/[0.01] transition-colors">
-                          <td className="py-4 px-4 font-mono text-foreground/40 transition-colors">01</td>
-                          <td className="py-4 px-4 font-semibold text-foreground transition-colors">PB 1</td>
-                          <td className="py-4 px-4 font-mono text-xs">MixRack DI + minijack</td>
-                          <td className="py-4 px-4">Плейбек левый канал. Требуется кабель minijack - 2 jack</td>
-                        </tr>
-                        <tr className="hover:bg-foreground/[0.01] transition-colors">
-                          <td className="py-4 px-4 font-mono text-foreground/40 transition-colors">02</td>
-                          <td className="py-4 px-4 font-semibold text-foreground transition-colors">PB 2</td>
-                          <td className="py-4 px-4 font-mono text-xs">MixRack DI + minijack</td>
-                          <td className="py-4 px-4">Плейбек правый канал. Требуется кабель minijack - 2 jack</td>
-                        </tr>
-                        <tr className="hover:bg-foreground/[0.01] transition-colors">
-                          <td className="py-4 px-4 font-mono text-foreground/40 transition-colors">03</td>
-                          <td className="py-4 px-4 font-semibold text-foreground transition-colors">SAX</td>
-                          <td className="py-4 px-4 font-mono text-xs">MixRack XLR</td>
-                          <td className="py-4 px-4">Саксофон. Требуется 1 розетка 220V и 1 XLR-кабель</td>
-                        </tr>
-                        <tr className="hover:bg-foreground/[0.01] transition-colors">
-                          <td className="py-4 px-4 font-mono text-foreground/40 transition-colors">04</td>
-                          <td className="py-4 px-4 font-semibold text-foreground transition-colors">POLINA (Vocal)</td>
-                          <td className="py-4 px-4 font-mono text-xs">MixRack Wireless</td>
-                          <td className="py-4 px-4">Лид-вокал. Радиосистема Shure QLXD/UR (капсюль SM58 beta), прямая стойка с круглым основанием</td>
-                        </tr>
-                        <tr className="hover:bg-foreground/[0.01] transition-colors text-foreground/40">
-                          <td className="py-4 px-4 font-mono">05</td>
-                          <td className="py-4 px-4 font-semibold text-foreground/70">KEYS (L) <span className="text-[10px] text-foreground/30 uppercase tracking-widest font-normal ml-2 transition-colors duration-500">Опционально</span></td>
-                          <td className="py-4 px-4 font-mono text-xs">MixRack DI + jack</td>
-                          <td className="py-4 px-4">Клавиши (левый). Клавишная стойка, DI-box, кабель jack-jack</td>
-                        </tr>
-                        <tr className="hover:bg-foreground/[0.01] transition-colors text-foreground/40">
-                          <td className="py-4 px-4 font-mono">06</td>
-                          <td className="py-4 px-4 font-semibold text-foreground/70">KEYS (R) <span className="text-[10px] text-foreground/30 uppercase tracking-widest font-normal ml-2 transition-colors duration-500">Опционально</span></td>
-                          <td className="py-4 px-4 font-mono text-xs">MixRack DI + jack</td>
-                          <td className="py-4 px-4">Клавиши (правый). Клавишная стойка, DI-box, кабель jack-jack</td>
-                        </tr>
+                        {(t('riders.tech.channels') as any[]).map((ch, idx) => {
+                          const hasBrackets = ch.source.includes('[');
+                          const cleanSource = hasBrackets ? ch.source.substring(0, ch.source.indexOf('[')).trim() : ch.source;
+                          const bracketLabel = hasBrackets ? ch.source.substring(ch.source.indexOf('[') + 1, ch.source.indexOf(']')) : '';
+                          const isOptional = ch.ch === '05' || ch.ch === '06';
+
+                          return (
+                            <tr key={idx} className={`hover:bg-foreground/[0.01] transition-colors ${isOptional ? 'text-foreground/40' : ''}`}>
+                              <td className="py-4 px-4 font-mono text-foreground/40 transition-colors">{ch.ch}</td>
+                              <td className={`py-4 px-4 font-semibold transition-colors ${isOptional ? 'text-foreground/70' : 'text-foreground'}`}>
+                                {cleanSource}
+                                {bracketLabel && (
+                                  <span className="text-[10px] text-foreground/30 uppercase tracking-widest font-normal ml-2 transition-colors duration-500">
+                                    {bracketLabel}
+                                  </span>
+                                )}
+                              </td>
+                              <td className="py-4 px-4 font-mono text-xs">{ch.type}</td>
+                              <td className="py-4 px-4">{ch.info}</td>
+                            </tr>
+                          );
+                        })}
                       </tbody>
                     </table>
                   </div>
@@ -278,21 +272,21 @@ export const Riders = () => {
                   {/* Hardware & Monitoring highlights */}
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-4 border-t border-foreground/5 transition-colors duration-500">
                     <div className="space-y-2">
-                      <span className="text-[10px] uppercase tracking-wider text-foreground/40 font-semibold block transition-colors duration-500">Ушной мониторинг</span>
+                      <span className="text-[10px] uppercase tracking-wider text-foreground/40 font-semibold block transition-colors duration-500">{t('riders.tech.iemTitle')}</span>
                       <p className="text-xs text-foreground/60 leading-relaxed font-light transition-colors duration-500">
-                        IEM-системы Shure PSM900/1000 или Sennheiser G3/G4 — 3 шт. с активной направленной антенной.
+                        {t('riders.tech.iemText')}
                       </p>
                     </div>
                     <div className="space-y-2">
-                      <span className="text-[10px] uppercase tracking-wider text-foreground/40 font-semibold block transition-colors duration-500">Вокальный микрофон</span>
+                      <span className="text-[10px] uppercase tracking-wider text-foreground/40 font-semibold block transition-colors duration-500">{t('riders.tech.micTitle')}</span>
                       <p className="text-xs text-foreground/60 leading-relaxed font-light transition-colors duration-500">
-                        Лид-вокал: радиосистема Shure QLXD/UR (капсюль SM58 beta) — 1 шт. Строго прямая микрофонная стойка на круглом блине (основании).
+                        {t('riders.tech.micText')}
                       </p>
                     </div>
                     <div className="space-y-2">
-                      <span className="text-[10px] uppercase tracking-wider text-foreground/40 font-semibold block transition-colors duration-500">Расходные материалы</span>
+                      <span className="text-[10px] uppercase tracking-wider text-foreground/40 font-semibold block transition-colors duration-500">{t('riders.tech.consumablesTitle')}</span>
                       <p className="text-xs text-foreground/60 leading-relaxed font-light transition-colors duration-500">
-                        Комплект новых щелочных батареек АА (Alkaline) — 12 шт. Армированный скотч PRO GAFF для разметки.
+                        {t('riders.tech.consumablesText')}
                       </p>
                     </div>
                   </div>
@@ -317,45 +311,33 @@ export const Riders = () => {
                     <div className="space-y-6">
                       <div className="flex items-center gap-3 text-foreground transition-colors">
                         <Users className="w-5 h-5 text-foreground/70 transition-colors" />
-                        <h3 className="font-semibold text-lg">Гримерная комната</h3>
+                        <h3 className="font-semibold text-lg">{t('riders.hosp.dressingTitle')}</h3>
                       </div>
                       
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm text-foreground/60 font-light transition-colors duration-500">
                         <div className="space-y-2.5">
-                          <p className="flex items-start gap-2">
-                            <span className="text-foreground mt-0.5 transition-colors">•</span>
-                            Отдельная, хорошо отапливаемая комната, закрывающаяся на ключ.
-                          </p>
-                          <p className="flex items-start gap-2">
-                            <span className="text-foreground mt-0.5 transition-colors">•</span>
-                            2-3 комфортных посадочных места + вешалки для костюмов.
-                          </p>
-                          <p className="flex items-start gap-2">
-                            <span className="text-foreground mt-0.5 transition-colors">•</span>
-                            Зеркало в полный рост, чистая гладильная доска и утюг/отпариватель.
-                          </p>
+                          {(t('riders.hosp.dressingLinesLeft') as string[]).map((line, idx) => (
+                            <p key={idx} className="flex items-start gap-2">
+                              <span className="text-foreground mt-0.5 transition-colors">•</span>
+                              {line}
+                            </p>
+                          ))}
                         </div>
                         
                         <div className="space-y-2.5">
-                          <p className="flex items-start gap-2">
-                            <span className="text-foreground mt-0.5 transition-colors">•</span>
-                            Закуски: нарезка (овощная, сырная, мясная) или фруктовая тарелка на 2-3 чел.
-                          </p>
-                          <p className="flex items-start gap-2">
-                            <span className="text-foreground mt-0.5 transition-colors">•</span>
-                            Напитки: негазированная вода (2л), чай, свежесваренный капучино/американо (не растворимый!).
-                          </p>
-                          <p className="flex items-start gap-2">
-                            <span className="text-foreground mt-0.5 transition-colors">•</span>
-                            2-3 свободные розетки 220V, сухие и влажные салфетки.
-                          </p>
+                          {(t('riders.hosp.dressingLinesRight') as string[]).map((line, idx) => (
+                            <p key={idx} className="flex items-start gap-2">
+                              <span className="text-foreground mt-0.5 transition-colors">•</span>
+                              {line}
+                            </p>
+                          ))}
                         </div>
                       </div>
                     </div>
 
                     <div className="mt-8 pt-4 border-t border-foreground/5 flex items-center gap-2.5 text-xs text-red-400/80 font-mono uppercase tracking-wider transition-colors duration-500">
                       <AlertTriangle className="w-4 h-4 flex-shrink-0" />
-                      Не подходит: бизнес-ланч, стафф-сет, фуршетные порции
+                      {t('riders.hosp.dressingAlert')}
                     </div>
                   </div>
 
@@ -364,23 +346,23 @@ export const Riders = () => {
                     <div className="space-y-6">
                       <div className="flex items-center gap-3 text-foreground transition-colors">
                         <Coffee className="w-5 h-5 text-foreground/70 transition-colors" />
-                        <h3 className="font-semibold text-lg">Питание коллектива</h3>
+                        <h3 className="font-semibold text-lg">{t('riders.hosp.mealsTitle')}</h3>
                       </div>
                       
                       <div className="space-y-4 text-sm text-foreground/60 font-light transition-colors duration-500">
                         <p className="leading-relaxed">
-                          Для полноценной работы группы на площадке необходимо предоставить полноценное питание (салаты, закуски, горячее блюдо из мяса/рыбы/птицы с гарниром) из расчета на **2-3 человек**.
+                          {renderBoldText(t('riders.hosp.mealsDesc'))}
                         </p>
                         
                         <div className="p-4 bg-foreground/5 border border-foreground/10 rounded-2xl space-y-2 transition-all">
-                          <span className="text-[10px] uppercase tracking-wider text-foreground/50 font-bold block transition-colors duration-500">Важная просьба:</span>
+                          <span className="text-[10px] uppercase tracking-wider text-foreground/50 font-bold block transition-colors duration-500">{t('riders.hosp.mealsWarningTitle')}</span>
                           <p className="text-xs text-foreground/80 italic transition-colors">
-                            «Пожалуйста, не добавляйте репчатый лук в салаты и горячие блюда артистов».
+                            {t('riders.hosp.mealsWarningDesc')}
                           </p>
                         </div>
 
                         <p className="leading-relaxed">
-                          Также на сцене во время выступления необходимо подготовить **4 бутылки негазированной воды** комнатной температуры.
+                          {renderBoldText(t('riders.hosp.mealsStageWater'))}
                         </p>
                       </div>
                     </div>
@@ -392,55 +374,30 @@ export const Riders = () => {
                 <div className="bg-foreground/[0.02] border border-foreground/5 rounded-3xl p-6 md:p-8 shadow-xl space-y-6 transition-all duration-500">
                   <div className="flex items-center gap-3 border-b border-foreground/5 pb-4 transition-colors">
                     <Plane className="w-5 h-5 text-foreground/70 transition-colors" />
-                    <h3 className="font-semibold text-lg">Транспорт и гастроли (за пределами Москвы)</h3>
+                    <h3 className="font-semibold text-lg">{t('riders.hosp.logisticsTitle')}</h3>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    
-                    {/* Flights */}
-                    <div className="space-y-3 p-4 bg-foreground/[0.01] border border-foreground/5 rounded-2xl transition-all duration-500">
-                      <div className="flex items-center gap-2 text-foreground transition-colors">
-                        <Plane className="w-4 h-4 text-foreground/50 transition-colors" />
-                        <span className="font-semibold text-sm">Авиаперелеты</span>
-                      </div>
-                      <p className="text-xs text-foreground/60 leading-relaxed font-light transition-colors duration-500">
-                        3-4 возвратных билета эконом-класса. Предпочтителен **Аэрофлот** (вылет из Шереметьево). Багаж: 6х23кг и 6х10кг ручной клади + оплата перегруза музыкальных инструментов. Без лоукостеров!
-                      </p>
-                    </div>
-
-                    {/* Ground Travel */}
-                    <div className="space-y-3 p-4 bg-foreground/[0.01] border border-foreground/5 rounded-2xl transition-all duration-500">
-                      <div className="flex items-center gap-2 text-foreground transition-colors">
-                        <Briefcase className="w-4 h-4 text-foreground/50 transition-colors" />
-                        <span className="font-semibold text-sm">Ж/Д и Автобус</span>
-                      </div>
-                      <p className="text-xs text-foreground/60 leading-relaxed font-light transition-colors duration-500">
-                        **Поезд** (до 18 ч): 4 места в одном купе (выкуп купе полностью). **Автобус** (до 6 ч): комфортабельный, с кондиционером, отоплением и био-туалетом.
-                      </p>
-                    </div>
-
-                    {/* Accommodation */}
-                    <div className="space-y-3 p-4 bg-foreground/[0.01] border border-foreground/5 rounded-2xl transition-all duration-500">
-                      <div className="flex items-center gap-2 text-foreground transition-colors">
-                        <MapPin className="w-4 h-4 text-foreground/50 transition-colors" />
-                        <span className="font-semibold text-sm">Проживание</span>
-                      </div>
-                      <p className="text-xs text-foreground/60 leading-relaxed font-light transition-colors duration-500">
-                        3-4 двухместных номера в отеле категории **не ниже 4*** в месте проведения или 15-30 минутах езды. Для утренних рейсов обязателен «ранний заезд». Суточные — 3000₽/чел.
-                      </p>
-                    </div>
-
-                    {/* Transfer */}
-                    <div className="space-y-3 p-4 bg-foreground/[0.01] border border-foreground/5 rounded-2xl transition-all duration-500">
-                      <div className="flex items-center gap-2 text-foreground transition-colors">
+                    {(t('riders.hosp.logistics') as any[]).map((item, idx) => {
+                      const icons = [
+                        <Plane className="w-4 h-4 text-foreground/50 transition-colors" />,
+                        <Briefcase className="w-4 h-4 text-foreground/50 transition-colors" />,
+                        <MapPin className="w-4 h-4 text-foreground/50 transition-colors" />,
                         <Users className="w-4 h-4 text-foreground/50 transition-colors" />
-                        <span className="font-semibold text-sm">Трансфер</span>
-                      </div>
-                      <p className="text-xs text-foreground/60 leading-relaxed font-light transition-colors duration-500">
-                        Комфортабельный минивэн/микроавтобус (от 3-4 свободных мест для инструментов) на все время пребывания. Необходим человек для помощи в погрузке оборудования.
-                      </p>
-                    </div>
+                      ];
 
+                      return (
+                        <div key={idx} className="space-y-3 p-4 bg-foreground/[0.01] border border-foreground/5 rounded-2xl transition-all duration-500">
+                          <div className="flex items-center gap-2 text-foreground transition-colors">
+                            {icons[idx]}
+                            <span className="font-semibold text-sm">{item.title}</span>
+                          </div>
+                          <p className="text-xs text-foreground/60 leading-relaxed font-light transition-colors duration-500">
+                            {renderBoldText(item.desc)}
+                          </p>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
 
@@ -451,15 +408,15 @@ export const Riders = () => {
 
         {/* Contact info footer */}
         <div className="mt-16 text-center max-w-xl mx-auto p-8 bg-white/[0.02] border border-white/5 rounded-3xl backdrop-blur-md">
-          <p className="text-[10px] uppercase tracking-[0.3em] text-white/40 mb-2">Контакты директора дуэта</p>
-          <p className="text-base font-light text-white/80 uppercase tracking-widest mb-6">Полина</p>
+          <p className="text-[10px] uppercase tracking-[0.3em] text-white/40 mb-2">{t('riders.contactsTitle')}</p>
+          <p className="text-base font-light text-white/80 uppercase tracking-widest mb-6">{t('riders.polinaName')}</p>
           <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
             <a 
               href="tel:+79194676701" 
               className="flex items-center justify-center gap-2 w-full sm:w-auto min-w-[140px] bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/30 py-3 px-6 rounded-xl text-xs uppercase tracking-widest text-white/80 hover:text-white transition-all duration-300 group/btn"
             >
               <Phone size={14} className="text-white/60 group-hover/btn:text-white group-hover/btn:animate-pulse transition-colors" />
-              <span>Позвонить</span>
+              <span>{t('riders.callBtn')}</span>
             </a>
             
             <a 

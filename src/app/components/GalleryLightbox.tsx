@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useLanguage } from './LanguageContext';
 
 interface Photo {
   src: string;
@@ -24,6 +25,8 @@ export const GalleryLightbox: React.FC<GalleryLightboxProps> = ({
   onPrev,
   onNext,
 }) => {
+  const { t } = useLanguage();
+
   useEffect(() => {
     if (!isOpen) return;
 
@@ -56,13 +59,13 @@ export const GalleryLightbox: React.FC<GalleryLightboxProps> = ({
         className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-2xl"
         role="dialog"
         aria-modal="true"
-        aria-label="Просмотр фотографии"
+        aria-label={t('gallery.lightbox.dialogAria')}
       >
         {/* Close Button */}
         <button
           onClick={onClose}
           className="absolute top-6 right-6 z-50 p-3 text-white/70 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 rounded-full transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
-          aria-label="Закрыть просмотр"
+          aria-label={t('gallery.lightbox.closeAria')}
         >
           <X className="w-6 h-6" />
         </button>
@@ -77,7 +80,7 @@ export const GalleryLightbox: React.FC<GalleryLightboxProps> = ({
             onPrev();
           }}
           className="absolute left-4 md:left-8 z-10 p-4 text-white/70 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 rounded-full transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
-          aria-label="Предыдущее фото"
+          aria-label={t('gallery.lightbox.prevAria')}
         >
           <ChevronLeft className="w-6 h-6 md:w-8 md:h-8" />
         </button>
@@ -119,7 +122,7 @@ export const GalleryLightbox: React.FC<GalleryLightboxProps> = ({
             onNext();
           }}
           className="absolute right-4 md:right-8 z-10 p-4 text-white/70 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 rounded-full transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
-          aria-label="Следующее фото"
+          aria-label={t('gallery.lightbox.nextAria')}
         >
           <ChevronRight className="w-6 h-6 md:w-8 md:h-8" />
         </button>

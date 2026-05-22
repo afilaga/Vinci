@@ -1,8 +1,11 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
+import { useLanguage } from './LanguageContext';
 
 export const About = () => {
+  const { t } = useLanguage();
+
   return (
     <section id="about" className="py-24 md:py-32 bg-background text-foreground relative overflow-hidden transition-colors duration-500">
       <div className="container mx-auto px-6 md:px-12">
@@ -34,26 +37,27 @@ export const About = () => {
             className="order-1 lg:order-2 flex flex-col justify-center"
           >
             <h2 className="text-4xl md:text-5xl font-light mb-8 uppercase tracking-widest text-foreground transition-colors duration-500">
-              О проекте
+              {t('about.title')}
             </h2>
             
             <h3 className="text-xl text-foreground/80 font-light mb-6 uppercase tracking-wider transition-colors duration-500">
-              Дуэт вокала и саксофона: Полина Винчи и Михаил Акимов
+              {t('about.subtitle')}
             </h3>
             
             <div className="space-y-6 text-foreground/70 font-light text-lg leading-relaxed transition-colors duration-500">
               <p>
-                <strong className="text-foreground font-normal transition-colors duration-500">A² (Ardor Squared)</strong> — это камерный дуэт, в котором вокал и саксофон звучат как единый организм. Минимум средств, максимум выразительности.
+                <strong className="text-foreground font-normal transition-colors duration-500">A² (Ardor Squared)</strong>
+                {t('about.p1').replace('A² (Ardor Squared)', '')}
               </p>
               <p>
-                Мы сочетаем живое исполнение, аутентичное звучание, авторские аранжировки и гибкий формат, подходящий как для частных мероприятий, так и для уютных вечеров.
+                {t('about.p2')}
               </p>
             </div>
  
             <div className="mt-12 p-8 bg-foreground/5 backdrop-blur-lg border border-foreground/10 relative shadow-2xl transition-all duration-500">
-              <div className="absolute -top-3 left-8 bg-background border border-foreground/10 px-4 py-1 text-[10px] uppercase tracking-[0.3em] text-foreground/60 transition-colors duration-500">Философия</div>
+              <div className="absolute -top-3 left-8 bg-background border border-foreground/10 px-4 py-1 text-[10px] uppercase tracking-[0.3em] text-foreground/60 transition-colors duration-500">{t('about.philosophy')}</div>
               <p className="text-foreground/80 font-light italic leading-relaxed text-lg transition-colors duration-500">
-                «Название отражает нашу философию: два разных тембра, два разных подхода, две музыкальные энергии, объединённые одной задачей — создавать звук, который трогает сердце и душу. Мы — два разных темперамента, два разных оттенка, которые вместе создают цельное, естественное и тёплое звучание.»
+                {t('about.quote')}
               </p>
             </div>
           </motion.div>
@@ -68,8 +72,8 @@ export const About = () => {
             transition={{ duration: 0.6 }}
             className="group cursor-pointer"
           >
-            <h3 className="text-2xl font-medium mb-2 group-hover:text-foreground transition-colors">Полина Винчи</h3>
-            <p className="text-sm uppercase tracking-widest text-foreground/50 mb-6 transition-colors duration-500">Вокал</p>
+            <h3 className="text-2xl font-medium mb-2 group-hover:text-foreground transition-colors">{t('about.polinaName')}</h3>
+            <p className="text-sm uppercase tracking-widest text-foreground/50 mb-6 transition-colors duration-500">{t('about.polinaRole')}</p>
             <div className="space-y-4 text-foreground/70 font-light leading-relaxed transition-colors duration-500">
               <div className="mb-6 relative aspect-square w-48 overflow-hidden rounded-full border border-foreground/10 transition-colors duration-500">
                 <ImageWithFallback
@@ -79,10 +83,10 @@ export const About = () => {
                 />
               </div>
               <p>
-                Полина — вокалистка с характерным мягким тембром и узнаваемой манерой исполнения. В её голосе — тепло, искренность и эмоциональность: каждая песня звучит так, будто проживается здесь и сейчас.
+                {t('about.polinaP1')}
               </p>
               <p>
-                Она работает на стыке поп-вокала, блюза, джаза и соула. Полина поёт на русском, английском, французском и итальянском языках, а её голос задаёт эмоциональное направление всему выступлению.
+                {t('about.polinaP2')}
               </p>
             </div>
           </motion.div>
@@ -94,8 +98,8 @@ export const About = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="group cursor-pointer"
           >
-            <h3 className="text-2xl font-medium mb-2 group-hover:text-foreground transition-colors">Михаил Акимов</h3>
-            <p className="text-sm uppercase tracking-widest text-foreground/50 mb-6 transition-colors duration-500">Саксофон</p>
+            <h3 className="text-2xl font-medium mb-2 group-hover:text-foreground transition-colors">{t('about.mikhailName')}</h3>
+            <p className="text-sm uppercase tracking-widest text-foreground/50 mb-6 transition-colors duration-500">{t('about.mikhailRole')}</p>
             <div className="space-y-4 text-foreground/70 font-light leading-relaxed transition-colors duration-500">
               <div className="mb-6 relative aspect-square w-48 overflow-hidden rounded-full border border-foreground/10 transition-colors duration-500">
                 <ImageWithFallback
@@ -105,10 +109,10 @@ export const About = () => {
                 />
               </div>
               <p>
-                Михаил играет в манере, которая сочетает джазовую школу и современный лаунж-подход. Миша — это про воздух, свободу и ту самую импровизацию, которая делает выступление уникальным.
+                {t('about.mikhailP1')}
               </p>
               <p>
-                Он не играет выученные соло — он разговаривает с залом через саксофон. Иногда мягко, иногда дерзко, но всегда — искренне. Саксофон реагирует на музыку в моменте, ловит настроение пространства и мягко поддерживает вокал, поэтому звучание получается живым и очень органичным.
+                {t('about.mikhailP2')}
               </p>
             </div>
           </motion.div>

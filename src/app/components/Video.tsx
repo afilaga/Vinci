@@ -1,11 +1,13 @@
 import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Play, Pause, Volume2, VolumeX, Maximize } from 'lucide-react';
+import { Play } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
+import { useLanguage } from './LanguageContext';
 
 export const Video = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const { t } = useLanguage();
 
   const handlePlayPause = () => {
     if (!videoRef.current) return;
@@ -42,10 +44,10 @@ export const Video = () => {
           transition={{ duration: 0.6 }}
           className="mb-16 space-y-4"
         >
-          <span className="text-xs uppercase tracking-[0.3em] text-foreground/40 font-semibold transition-colors duration-500">Live промо</span>
-          <h2 className="text-4xl md:text-5xl font-light uppercase tracking-widest text-foreground transition-colors duration-500">Живое выступление</h2>
+          <span className="text-xs uppercase tracking-[0.3em] text-foreground/40 font-semibold transition-colors duration-500">{t('video.tag')}</span>
+          <h2 className="text-4xl md:text-5xl font-light uppercase tracking-widest text-foreground transition-colors duration-500">{t('video.title')}</h2>
           <p className="text-foreground/60 font-light text-base md:text-lg max-w-xl mx-auto leading-relaxed transition-colors duration-500">
-            Почувствуйте невероятную атмосферу и энергетику нашего живого выступления. Видео-презентация дуэта A²: вокал и саксофон.
+            {t('video.desc')}
           </p>
         </motion.div>
 
@@ -93,7 +95,7 @@ export const Video = () => {
                   </motion.div>
 
                   <span className="mt-6 text-xs md:text-sm uppercase tracking-[0.25em] text-white/80 font-medium group-hover:text-white transition-colors duration-300">
-                    Смотреть промо-видео
+                    {t('video.watch')}
                   </span>
                 </motion.div>
               )}

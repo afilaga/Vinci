@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { ChevronDown } from 'lucide-react';
 import MagicRings from '../../components/MagicRings';
+import { useLanguage } from './LanguageContext';
 
 export const Hero = () => {
   const [isDark, setIsDark] = useState(true);
+  const { t } = useLanguage();
 
   useEffect(() => {
     // Initial check
@@ -54,9 +56,9 @@ export const Hero = () => {
           transition={{ duration: 0.9, ease: "easeOut" }}
           className="mb-6 inline-flex items-center gap-3 border border-foreground/15 bg-foreground/5 px-4 py-2 text-[10px] md:text-xs uppercase tracking-[0.35em] text-foreground/75 backdrop-blur-xl transition-colors duration-500"
         >
-          <span>Live vocals</span>
+          <span>{t('hero.vocals')}</span>
           <span className="h-1 w-1 rounded-full bg-foreground/40 transition-colors duration-500" aria-hidden="true" />
-          <span>Saxophone duo</span>
+          <span>{t('hero.sax')}</span>
         </motion.div>
 
         <div className="flex flex-col items-center justify-center mb-8">
@@ -76,7 +78,7 @@ export const Hero = () => {
             transition={{ duration: 1, delay: 0.6, ease: "easeOut" }}
             className="text-foreground/80 text-xl md:text-3xl font-light tracking-[0.35em] uppercase mt-8 text-balance transition-colors duration-500"
           >
-            Ardor Squared
+            {t('hero.title')}
           </motion.h1>
         </div>
         
@@ -86,7 +88,7 @@ export const Hero = () => {
           transition={{ duration: 1, delay: 0.6, ease: "easeOut" }}
           className="text-foreground text-sm md:text-lg font-light tracking-[0.25em] uppercase max-w-2xl mx-auto leading-relaxed transition-colors duration-500"
         >
-          Дуэт вокала и саксофона
+          {t('hero.subtitle')}
         </motion.p>
 
         <motion.p
@@ -95,7 +97,7 @@ export const Hero = () => {
           transition={{ duration: 1, delay: 0.8, ease: "easeOut" }}
           className="mt-6 max-w-3xl mx-auto text-sm md:text-base text-foreground/65 leading-7 font-light transition-colors duration-500"
         >
-          Музыкальный проект для частных событий в Москве
+          {t('hero.desc')}
         </motion.p>
         
         <motion.div
@@ -108,7 +110,7 @@ export const Hero = () => {
             href="#booking"
             className="relative inline-flex overflow-hidden px-12 py-5 bg-foreground text-background group uppercase tracking-[0.3em] text-xs font-semibold transition-colors duration-500 hover:bg-foreground/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-4 focus-visible:ring-offset-background shadow-[0_0_40px_rgba(0,0,0,0.08)] dark:shadow-[0_0_40px_rgba(255,255,255,0.16)]"
           >
-            <span className="relative z-10">Забронировать</span>
+            <span className="relative z-10">{t('hero.book')}</span>
             <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(255,255,255,0)_0%,rgba(0,0,0,0.08)_45%,rgba(255,255,255,0)_100%)] translate-x-[-120%] group-hover:translate-x-[120%] motion-reduce:transition-none transition-transform duration-700 ease-out" aria-hidden="true" />
           </a>
         </motion.div>
@@ -126,3 +128,4 @@ export const Hero = () => {
     </section>
   );
 };
+

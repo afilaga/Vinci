@@ -13,6 +13,7 @@ import { Video } from './components/Video';
 import { Riders } from './components/Riders';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
+import { LanguageProvider } from './components/LanguageContext';
 
 // Main Application Component
 export default function App() {
@@ -29,28 +30,31 @@ export default function App() {
   }, []);
 
   return (
-    <div className="w-full min-h-screen bg-background text-foreground font-sans selection:bg-foreground selection:text-background transition-colors duration-500 relative">
-      <CustomCursor />
-      
-      <motion.div 
-        className="fixed top-0 left-0 right-0 h-[2px] bg-white origin-left z-[100]"
-        style={{ scaleX: scrollYProgress }}
-      />
+    <LanguageProvider>
+      <div className="w-full min-h-screen bg-background text-foreground font-sans selection:bg-foreground selection:text-background transition-colors duration-500 relative">
+        <CustomCursor />
+        
+        <motion.div 
+          className="fixed top-0 left-0 right-0 h-[2px] bg-white origin-left z-[100]"
+          style={{ scaleX: scrollYProgress }}
+        />
 
-      <Toaster position="bottom-right" toastOptions={{ style: { background: 'white', color: 'black', borderRadius: '0px', border: '1px solid black' } }} />
-      <Navbar />
-      <main>
-        <Hero />
-        <About />
-        <Repertoire />
-        <DemoPlayer />
-        <Playlist />
-        <Gallery />
-        <Video />
-        <Riders />
-        <Contact />
-      </main>
-      <Footer />
-    </div>
+        <Toaster position="bottom-right" toastOptions={{ style: { background: 'white', color: 'black', borderRadius: '0px', border: '1px solid black' } }} />
+        <Navbar />
+        <main>
+          <Hero />
+          <About />
+          <Repertoire />
+          <DemoPlayer />
+          <Playlist />
+          <Gallery />
+          <Video />
+          <Riders />
+          <Contact />
+        </main>
+        <Footer />
+      </div>
+    </LanguageProvider>
   );
 }
+
