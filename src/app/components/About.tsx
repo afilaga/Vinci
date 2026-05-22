@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { useLanguage } from './LanguageContext';
@@ -6,6 +6,24 @@ import SoftAurora from '../../components/SoftAurora';
 
 export const About = () => {
   const { t } = useLanguage();
+  const [isDark, setIsDark] = useState(true);
+
+  useEffect(() => {
+    // Initial check
+    setIsDark(document.documentElement.classList.contains('dark'));
+
+    // Observe class changes on <html>
+    const observer = new MutationObserver(() => {
+      setIsDark(document.documentElement.classList.contains('dark'));
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section id="about" className="py-24 md:py-32 bg-background text-foreground relative overflow-hidden transition-colors duration-500">
@@ -18,9 +36,9 @@ export const About = () => {
               <SoftAurora
                 speed={0.4}
                 scale={1.4}
-                brightness={1.0}
-                color1="#f7f7f7"
-                color2="#120214"
+                brightness={isDark ? 1.0 : 1.2}
+                color1={isDark ? "#f7f7f7" : "#a855f7"}
+                color2={isDark ? "#120214" : "#06b6d4"}
                 noiseFrequency={2.5}
                 noiseAmplitude={1.0}
                 bandHeight={0.5}
