@@ -65,7 +65,7 @@ export const Video = () => {
             <video
               ref={videoRef}
               src="video/a2_live_video.mp4"
-              poster="images/polina_performance.jpg"
+              poster="video/Cover_video.png"
               playsInline
               controls={isPlaying}
               onPlay={() => setIsPlaying(true)}

@@ -220,13 +220,13 @@ export const DemoPlayer = () => {
             <div className="flex flex-col items-center justify-center flex-1 my-6 md:my-10 relative">
               
               {/* Spinning vinyl visual */}
-              <div className="relative w-48 h-48 md:w-64 md:h-64 rounded-full bg-neutral-900 dark:bg-neutral-950 flex items-center justify-center shadow-[0_0_40px_rgba(0,0,0,0.08)] dark:shadow-[0_0_40px_rgba(255,255,255,0.05)] border border-foreground/10 transition-all duration-500">
+              <div className="relative w-48 h-48 md:w-64 md:h-64 rounded-full bg-neutral-100 dark:bg-neutral-950 flex items-center justify-center shadow-[0_0_40px_rgba(0,0,0,0.08)] dark:shadow-[0_0_40px_rgba(255,255,255,0.05)] border border-foreground/10 transition-all duration-500">
                 
                 {/* Vinyl Grooves concentric rings */}
-                <div className="absolute inset-2 border border-dashed border-foreground/5 rounded-full" />
-                <div className="absolute inset-6 border border-foreground/5 rounded-full" />
-                <div className="absolute inset-12 border border-foreground/5 rounded-full" />
-                <div className="absolute inset-20 border border-foreground/5 rounded-full" />
+                <div className="absolute inset-2 border border-dashed border-foreground/10 dark:border-foreground/5 rounded-full" />
+                <div className="absolute inset-6 border border-foreground/10 dark:border-foreground/5 rounded-full" />
+                <div className="absolute inset-12 border border-foreground/10 dark:border-foreground/5 rounded-full" />
+                <div className="absolute inset-20 border border-foreground/10 dark:border-foreground/5 rounded-full" />
                 
                 {/* Rotating animation container */}
                 <motion.div
@@ -235,10 +235,15 @@ export const DemoPlayer = () => {
                   className="w-full h-full flex items-center justify-center relative rounded-full"
                 >
                   {/* Vinyl label center */}
-                  <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-foreground/10 border border-foreground/20 flex items-center justify-center relative shadow-inner">
-                    <Music className="w-6 h-6 md:w-8 md:h-8 text-foreground/80 transition-colors" />
+                  <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-foreground/5 dark:bg-foreground/10 border border-foreground/20 flex items-center justify-center relative shadow-inner">
+                    <div className="absolute inset-2 border border-dotted border-foreground/20 rounded-full" />
                   </div>
                 </motion.div>
+
+                {/* Spindle hole in the center */}
+                <div className="absolute w-3.5 h-3.5 md:w-4 md:h-4 rounded-full bg-background border border-foreground/25 shadow-inner flex items-center justify-center z-10 transition-colors duration-500">
+                  <div className="w-1 h-1 rounded-full bg-foreground/20" />
+                </div>
 
                 {/* Loader Spinner Overlay */}
                 <AnimatePresence>
