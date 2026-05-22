@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { useLanguage } from './LanguageContext';
+import SoftAurora from '../../components/SoftAurora';
 
 export const About = () => {
   const { t } = useLanguage();
@@ -11,23 +12,44 @@ export const About = () => {
       <div className="container mx-auto px-6 md:px-12">
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center mb-32">
-          <motion.div 
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            className="order-2 lg:order-1 relative aspect-[3/4] w-full max-w-md mx-auto overflow-hidden group cursor-pointer"
-          >
-            <div className="absolute inset-0 overflow-hidden">
-              <ImageWithFallback
-                src="images/About.webp"
-                alt="A² Duo"
-                loading="lazy"
-                decoding="async"
-                className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
+          <div className="order-2 lg:order-1 relative w-full max-w-md mx-auto aspect-[3/4]">
+            {/* SoftAurora WebGL backdrop behind the photo */}
+            <div className="absolute -inset-4 md:-inset-8 -z-10 rounded-[2rem] overflow-hidden opacity-75 pointer-events-none shadow-2xl">
+              <SoftAurora
+                speed={0.4}
+                scale={1.4}
+                brightness={1.0}
+                color1="#f7f7f7"
+                color2="#120214"
+                noiseFrequency={2.5}
+                noiseAmplitude={1.0}
+                bandHeight={0.5}
+                bandSpread={1.0}
+                octaveDecay={0.1}
+                layerOffset={0.4}
+                colorSpeed={1.0}
+                enableMouseInteraction={false}
               />
             </div>
-          </motion.div>
+            
+            <motion.div 
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+              className="relative w-full h-full rounded-2xl overflow-hidden group cursor-pointer border border-foreground/10 shadow-2xl"
+            >
+              <div className="absolute inset-0 overflow-hidden">
+                <ImageWithFallback
+                  src="images/About.webp"
+                  alt="A² Duo"
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
+                />
+              </div>
+            </motion.div>
+          </div>
  
           <motion.div 
             initial={{ opacity: 0, x: 30 }}
