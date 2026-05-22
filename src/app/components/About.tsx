@@ -36,13 +36,13 @@ export const About = () => {
               <SoftAurora
                 speed={0.4}
                 scale={1.4}
-                brightness={isDark ? 1.0 : 1.2}
+                brightness={isDark ? 1.2 : 1.4}
                 color1={isDark ? "#f7f7f7" : "#a855f7"}
                 color2={isDark ? "#120214" : "#06b6d4"}
                 noiseFrequency={2.5}
                 noiseAmplitude={1.0}
                 bandHeight={0.5}
-                bandSpread={1.0}
+                bandSpread={0.25}
                 octaveDecay={0.1}
                 layerOffset={0.4}
                 colorSpeed={1.0}

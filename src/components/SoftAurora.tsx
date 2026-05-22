@@ -69,9 +69,7 @@ vec3 gradientHash(vec3 p) {
     dot(p, vec3(169.5, 283.3, 156.9))
   );
   vec3 h = fract(sin(p) * 43758.5453123);
-  float phi = acos(2.0 * h.x - 1.0);
-  float theta = TAU * h.y;
-  return vec3(cos(theta) * sin(phi), sin(theta) * cos(phi), cos(phi));
+  return normalize(h * 2.0 - 1.0 + 0.0001);
 }
 
 float quinticSmooth(float t) {
@@ -203,12 +201,18 @@ export default function SoftAurora({
     }
 
     function resize() {
-      renderer.setSize(container.offsetWidth, container.offsetHeight);
+      const w = container.offsetWidth || 100;
+      const h = container.offsetHeight || 100;
+      renderer.setSize(w, h);
       if (program) {
         program.uniforms.uResolution.value = [gl.canvas.width, gl.canvas.height, gl.canvas.width / gl.canvas.height];
       }
     }
     window.addEventListener('resize', resize);
+
+    const resizeObserver = new ResizeObserver(resize);
+    resizeObserver.observe(container);
+
     resize();
 
     const geometry = new Triangle(gl);
@@ -267,6 +271,7 @@ export default function SoftAurora({
     return () => {
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener('resize', resize);
+      resizeObserver.disconnect();
       if (enableMouseInteraction) {
         gl.canvas.removeEventListener('mousemove', handleMouseMove);
         gl.canvas.removeEventListener('mouseleave', handleMouseLeave);
